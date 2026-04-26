@@ -64,15 +64,15 @@
     "gallery": [
       {
         "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777174140/y4xtdnfrwyowj0wqes2x.jpg",
-        "alt": "Gallery photo 1"
+        "alt": "Gallery 1"
       },
       {
         "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777174144/nqpjgxtobdnjlsqtknpb.jpg",
-        "alt": "Gallery photo 2"
+        "alt": "Gallery 2"
       },
       {
         "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777174148/kb8rcort3ag43vhmcrkk.jpg",
-        "alt": "Gallery photo 3"
+        "alt": "Gallery 3"
       }
     ]
   },
