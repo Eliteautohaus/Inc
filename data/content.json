@@ -250,10 +250,10 @@
       },
       {
         "id": "new-1777223378779",
-        "name": "New Vessel",
-        "price": "",
-        "status": "available",
-        "description": "",
+        "name": "2001 Regal 1800 LSR",
+        "price": "$13,999 CAD",
+        "status": "sold",
+        "description": "2001 Regal 1800 LSR Day Boat\n",
         "images": [
           "https://res.cloudinary.com/dvnleduvx/image/upload/v1777223414/amduhnic7yuums9nk2jt.png"
         ]
