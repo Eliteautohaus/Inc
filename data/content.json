@@ -184,7 +184,17 @@
         "price": "94999",
         "status": "available",
         "description": "8.1L Volvo Penta",
-        "images": []
+        "images": [
+          "https://res.cloudinary.com/dvnleduvx/image/upload/v1777177590/f9ps8tni4ysok2ywbiqz.jpg",
+          "https://res.cloudinary.com/dvnleduvx/image/upload/v1777177591/fqy1e1spfmzpwunrmc95.jpg",
+          "https://res.cloudinary.com/dvnleduvx/image/upload/v1777177591/rykbjiuxe28utnywb0bh.jpg",
+          "https://res.cloudinary.com/dvnleduvx/image/upload/v1777177592/ixocqdp2syynh2nvuuxu.jpg",
+          "https://res.cloudinary.com/dvnleduvx/image/upload/v1777177592/lbiqd32gohpaamxl1ni6.jpg",
+          "https://res.cloudinary.com/dvnleduvx/image/upload/v1777177593/z4vfli6skwyaojwdrtdj.jpg",
+          "https://res.cloudinary.com/dvnleduvx/image/upload/v1777177593/zed0u3ivzj9buu0z0dnu.jpg",
+          "https://res.cloudinary.com/dvnleduvx/image/upload/v1777177594/rwsfoyzn2bdjiao0mgwn.jpg",
+          "https://res.cloudinary.com/dvnleduvx/image/upload/v1777177594/vy7lhwhralakyencks1t.jpg"
+        ]
       }
     ]
   },
