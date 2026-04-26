@@ -241,6 +241,7 @@
     <div class="ptitle" id="panel-title">Home Page</div>
     <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
       <div class="save-status" id="save-status">● Ready</div>
+      <button id="reconnect-btn" onclick="showReconnect()" style="display:none;background:rgba(255,160,0,0.15);border:1px solid rgba(255,160,0,0.4);color:#ffc966;font-family:'Rajdhani',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.4rem 0.9rem;cursor:pointer;">🔑 Fix Token</button>
       <a href="../index.html" target="_blank" class="pvbtn">👁 View Site</a>
     </div>
   </div>
@@ -956,8 +957,20 @@ async function loadContent() {
     setSaveStatus('saved', '✅ Loaded');
     setTimeout(() => setSaveStatus('', '● Ready'), 2000);
   } catch(e) {
-    setSaveStatus('error', '❌ Load failed: ' + e.message);
-    showToast('❌ Could not load content: ' + e.message);
+    // GitHub failed (bad token, expired etc) — fall back to loading directly from the site
+    setSaveStatus('error', '❌ GitHub: ' + e.message + ' — loading from site files...');
+    try {
+      // Try relative path from admin/ folder
+      const r2 = await fetch('../data/content.json?_=' + Date.now());
+      if (!r2.ok) throw new Error('fetch failed');
+      siteData = await r2.json();
+      populate();
+      setSaveStatus('error', '⚠️ GitHub token expired — reconnect in Image Upload Setup. Fields loaded from site.');
+      showToast('⚠️ GitHub token expired. Fields are loaded but saves need a new token.');
+    } catch(e2) {
+      setSaveStatus('error', '❌ Could not load content. Check GitHub connection.');
+      showToast('❌ Could not load content.json. Please reconnect GitHub.');
+    }
   }
 }
 
@@ -986,6 +999,25 @@ function setSaveStatus(type, msg) {
   if (!el) return;
   el.className = 'save-status' + (type ? ' ' + type : '');
   el.textContent = msg;
+  // Show reconnect button whenever there's a token/credential error
+  const reconnectBtn = document.getElementById('reconnect-btn');
+  if (reconnectBtn) {
+    const isTokenError = type === 'error' && (msg.includes('401') || msg.includes('Bad cred') || msg.includes('token') || msg.includes('Token'));
+    reconnectBtn.style.display = isTokenError ? '' : 'none';
+  }
+}
+
+function showReconnect() {
+  // Show the GitHub setup screen so user can enter new token
+  document.getElementById('github-setup').style.display = 'flex';
+  // Pre-fill username and repo from stored values
+  const gh = getGH();
+  if (gh.user) document.getElementById('setup-user').value = gh.user;
+  if (gh.repo) document.getElementById('setup-repo').value = gh.repo;
+  if (gh.branch) document.getElementById('setup-branch').value = gh.branch;
+  // Clear token so user pastes a fresh one
+  document.getElementById('setup-token').value = '';
+  document.getElementById('setup-error').style.display = 'none';
 }
 
 /* ══════════════════════════════════════
