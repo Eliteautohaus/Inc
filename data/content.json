@@ -64,16 +64,12 @@
     },
     "gallery": [
       {
-        "image": "images/gallery1.jpg",
-        "alt": "Luxury vehicle 1"
-      },
-      {
         "image": "images/gallery2.jpg",
-        "alt": "Luxury vehicle 2"
+        "alt": "Gallery photo 1"
       },
       {
         "image": "images/gallery3.jpg",
-        "alt": "Luxury vehicle 3"
+        "alt": "Gallery photo 2"
       }
     ]
   },
@@ -182,7 +178,7 @@
     ]
   },
   "footer": {
-    "copyright": "Copyright \u00a9 2026 Elite Autohaus Inc \u2013 All Rights Reserved."
+    "copyright": "Copyright © 2026 Elite Autohaus Inc – All Rights Reserved."
   },
   "pages": {
     "service": {
@@ -191,7 +187,7 @@
       "auto": [
         {
           "name": "Maintenance",
-          "desc": "Full Dealer Scheduled Maintenance \u2014 oil changes, filters, fluid services and more, performed to manufacturer specifications.",
+          "desc": "Full Dealer Scheduled Maintenance — oil changes, filters, fluid services and more, performed to manufacturer specifications.",
           "image": ""
         },
         {
@@ -201,7 +197,7 @@
         },
         {
           "name": "Brakes & Suspension",
-          "desc": "Full brake & suspension service \u2014 pads, rotors, calipers, shocks, struts, control arms and more.",
+          "desc": "Full brake & suspension service — pads, rotors, calipers, shocks, struts, control arms and more.",
           "image": ""
         }
       ],
@@ -213,7 +209,7 @@
         },
         {
           "name": "Detailing & Bottom Paint",
-          "desc": "Hull detailing, polish, and antifouling bottom paint \u2014 protect your investment and keep it looking showroom-fresh.",
+          "desc": "Hull detailing, polish, and antifouling bottom paint — protect your investment and keep it looking showroom-fresh.",
           "image": ""
         },
         {
