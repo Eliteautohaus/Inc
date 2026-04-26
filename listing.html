@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5" />
+  <title>Listing – Elite Autohaus</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── GALLERY ── */
+    .gallery-outer {
+      background: #000;
+      position: relative;
+      width: 100%;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Main image stage */
+    .gallery-stage {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: #000;
+      touch-action: pan-y;
+    }
+
+    /* Images — stacked, only active one is visible */
+    .gallery-stage img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      background: #000;
+    }
+    .gallery-stage img.active { opacity: 1; }
+
+    /* Arrow buttons */
+    .g-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 48px;
+      height: 48px;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      border-radius: 0;
+    }
+    .g-arrow:hover, .g-arrow:active { background: rgba(255,255,255,0.18); }
+    .g-arrow:disabled { opacity: 0.2; pointer-events: none; }
+    .g-arrow.prev { left: 0.75rem; }
+    .g-arrow.next { right: 0.75rem; }
+
+    /* Counter pill */
+    .g-counter {
+      position: absolute;
+      bottom: 0.75rem;
+      right: 0.75rem;
+      background: rgba(0,0,0,0.65);
+      color: #ccc;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 0.25rem 0.7rem;
+      pointer-events: none;
+    }
+
+    /* Thumbnail strip */
+    .gallery-thumbs {
+      display: flex;
+      gap: 4px;
+      padding: 4px;
+      background: #000;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .gallery-thumbs::-webkit-scrollbar { display: none; }
+    .g-thumb {
+      flex-shrink: 0;
+      width: 72px;
+      height: 54px;
+      object-fit: cover;
+      opacity: 0.45;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: opacity 0.2s, border-color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+    .g-thumb.active { opacity: 1; border-color: #fff; }
+    .g-thumb:hover { opacity: 0.8; }
+
+    /* Swipe hint on mobile */
+    .swipe-hint {
+      display: none;
+      text-align: center;
+      font-size: 0.7rem;
+      color: #555;
+      padding: 0.4rem;
+      letter-spacing: 0.06em;
+      font-family: 'Rajdhani', sans-serif;
+    }
+
+    /* ── STATUS BADGE ── */
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.4rem 1.1rem;
+      font-family: 'Rajdhani', sans-serif; font-size: 0.75rem;
+      font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.2); color: var(--white);
+      background: rgba(255,255,255,0.07);
+    }
+    .status-badge.available { border-color:rgba(100,220,100,0.4); color:#88ee88; background:rgba(100,220,100,0.07); }
+    .status-badge.sold      { border-color:rgba(255,80,80,0.4);  color:#ff9999; background:rgba(255,80,80,0.07); }
+    .status-badge.coming-soon { border-color:rgba(255,255,255,0.15); color:var(--muted); }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; flex-shrink: 0; }
+
+    /* ── LISTING CONTENT ── */
+    .listing-title {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(1.6rem, 5vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-align: center;
+      line-height: 1.1;
+    }
+    .listing-price {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      font-weight: 700;
+      color: var(--white);
+      text-align: center;
+      opacity: 0.8;
+      margin-top: 0.5rem;
+    }
+    .listing-desc {
+      color: var(--light);
+      font-size: 0.92rem;
+      line-height: 1.9;
+      max-width: 740px;
+      margin: 0 auto;
+    }
+    .listing-desc p { margin-bottom: 1rem; }
+
+    /* ── BACK LINK ── */
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      color: var(--muted); text-decoration: none;
+      font-family: 'Rajdhani', sans-serif; font-size: 0.78rem;
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      transition: color 0.2s; margin-bottom: 1.5rem;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .back-link:hover, .back-link:active { color: var(--white); }
+
+    /* ── ENQUIRY FORM ── */
+    .eq-form { max-width: 660px; margin: 0 auto; }
+    .eq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .eq-full { grid-column: 1 / -1; }
+    .eq-label {
+      display: block; font-family: 'Rajdhani', sans-serif; font-size: 0.72rem;
+      font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 0.35rem;
+    }
+    .eq-input {
+      width: 100%; padding: 0.75rem 0.9rem;
+      background: var(--dark2); border: 1px solid var(--dark3);
+      border-bottom: 2px solid var(--dark3);
+      color: var(--white); font-family: 'Open Sans', sans-serif;
+      font-size: 1rem; outline: none;
+      transition: border-color 0.2s; resize: vertical;
+      -webkit-appearance: none; border-radius: 0;
+    }
+    .eq-input:focus { border-bottom-color: var(--white); }
+    textarea.eq-input { min-height: 100px; }
+
+    @media (max-width: 600px) {
+      .g-arrow { width: 40px; height: 40px; font-size: 1.1rem; }
+      .g-arrow.prev { left: 0.4rem; }
+      .g-arrow.next { right: 0.4rem; }
+      .g-thumb { width: 58px; height: 44px; }
+      .swipe-hint { display: block; }
+      .eq-grid { grid-template-columns: 1fr; }
+      .eq-full { grid-column: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo-wrap"><img src="images/logo.png" alt="Elite Autohaus" /></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="yacht-sales.html">Yacht Sales</a>
+    <a href="yacht-inventory.html">Yacht Inventory</a>
+    <a href="sell.html">Sell</a>
+    <a href="personal-shopper.html">Personal Shopper</a>
+    <a href="service.html">Service</a>
+    <a href="financing.html">Financing</a>
+    <a href="contact-us.html">Contact Us</a>
+  </nav>
+  <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+</header>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="index.html">Home</a>
+  <a href="yacht-sales.html">Yacht Sales</a>
+  <a href="yacht-inventory.html">Yacht Inventory</a>
+  <a href="sell.html">Sell</a>
+  <a href="personal-shopper.html">Personal Shopper</a>
+  <a href="service.html">Service</a>
+  <a href="financing.html">Financing</a>
+  <a href="contact-us.html">Contact Us</a>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery-outer" id="gallery-outer" style="display:none;">
+  <div class="gallery-stage" id="gallery-stage">
+    <!-- images injected -->
+  </div>
+  <button class="g-arrow prev" id="btn-prev" aria-label="Previous photo">&#8592;</button>
+  <button class="g-arrow next" id="btn-next" aria-label="Next photo">&#8594;</button>
+  <div class="g-counter" id="g-counter">1 / 1</div>
+</div>
+<div class="gallery-thumbs" id="gallery-thumbs" style="display:none;"></div>
+<div class="swipe-hint" id="swipe-hint">← Swipe to browse photos →</div>
+
+<!-- LISTING INFO -->
+<section class="section section-black" style="padding-top:2.5rem;padding-bottom:0;">
+  <div class="wrapper">
+    <a href="yacht-inventory.html" class="back-link">&#8592; Back to Inventory</a>
+    <div id="status-wrap" style="text-align:center;margin-bottom:1rem;"></div>
+    <h1 class="listing-title" id="listing-title">Loading...</h1>
+    <div class="listing-price" id="listing-price"></div>
+  </div>
+</section>
+
+<section class="section section-black" style="padding-top:2rem;padding-bottom:3.5rem;">
+  <div class="wrapper">
+    <div style="width:36px;height:2px;background:rgba(255,255,255,0.18);margin:0 auto 2rem;"></div>
+    <div class="listing-desc" id="listing-desc"></div>
+  </div>
+</section>
+
+<!-- ENQUIRY FORM -->
+<section class="section section-dark" id="enquiry-section">
+  <div class="wrapper">
+    <div style="text-align:center;margin-bottom:2rem;">
+      <div class="section-label" style="text-align:center;">Interested In This Vessel?</div>
+      <div style="width:36px;height:2px;background:rgba(255,255,255,0.18);margin:0.7rem auto 1rem;"></div>
+      <h2 class="section-title" style="text-align:center;">Send Us an Enquiry</h2>
+      <p style="color:var(--muted);font-size:0.85rem;">We'll get back to you within one business day.</p>
+    </div>
+    <div class="eq-form">
+      <form id="eq-form" method="POST">
+        <input type="hidden" name="listing" id="form-listing" value="" />
+        <input type="hidden" name="_subject" id="form-subject" value="Yacht Enquiry" />
+        <div class="eq-grid">
+          <div>
+            <label class="eq-label">Your Name <span style="color:#fff;">*</span></label>
+            <input class="eq-input" type="text" name="name" required placeholder="Full name" autocomplete="name" />
+          </div>
+          <div>
+            <label class="eq-label">Phone <span style="color:#fff;">*</span></label>
+            <input class="eq-input" type="tel" name="phone" required placeholder="(416) 555-0000" autocomplete="tel" />
+          </div>
+          <div class="eq-full">
+            <label class="eq-label">Email <span style="color:#fff;">*</span></label>
+            <input class="eq-input" type="email" name="email" required placeholder="you@example.com" autocomplete="email" />
+          </div>
+          <div class="eq-full">
+            <label class="eq-label">Message</label>
+            <textarea class="eq-input" name="message" placeholder="Questions, viewing times, financing..."></textarea>
+          </div>
+        </div>
+        <div style="margin-top:1.2rem;">
+          <button type="submit" class="btn btn-red" id="eq-submit">Send Enquiry</button>
+        </div>
+      </form>
+      <div id="eq-success" style="display:none;background:var(--dark2);border:1px solid rgba(255,255,255,0.15);padding:1.5rem;margin-top:1.5rem;text-align:center;">
+        <div style="font-size:1.8rem;margin-bottom:0.5rem;">✅</div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:1rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.4rem;">Enquiry Sent!</div>
+        <p style="color:var(--muted);font-size:0.85rem;">We'll be in touch within one business day.</p>
+      </div>
+      <div id="eq-error" style="display:none;background:rgba(200,0,0,0.07);border:1px solid rgba(255,100,100,0.2);padding:1rem 1.2rem;margin-top:1rem;color:#ff9999;font-size:0.85rem;line-height:1.6;"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Copyright &copy; 2026 Elite Autohaus Inc &ndash; All Rights Reserved.</p>
+  <a href="contact-us.html">Contact Us</a>
+</footer>
+<div class="cookie-bar" id="cookie-bar" style="display:none;">
+  <p>We use cookies to analyze website traffic and optimize your experience.</p>
+  <button id="cookie-accept">Accept</button>
+</div>
+<a href="admin/index.html" class="admin-badge">&#9881;</a>
+
+<script src="shared.js"></script>
+<script>
+/* ═══════════════════════════
+   GALLERY ENGINE
+═══════════════════════════ */
+let images = [];
+let cur = 0;
+let touchX = 0;
+let touchY = 0;
+let isDragging = false;
+
+function buildGallery(imgs) {
+  images = imgs;
+  if (!images.length) return;
+
+  const stage = document.getElementById('gallery-stage');
+  const thumbsEl = document.getElementById('gallery-thumbs');
+  const outer = document.getElementById('gallery-outer');
+  const hint = document.getElementById('swipe-hint');
+
+  // Show gallery container
+  outer.style.display = '';
+
+  // Build main images
+  stage.innerHTML = images.map((src, i) =>
+    `<img src="${src}" class="${i === 0 ? 'active' : ''}" alt="Photo ${i+1}" loading="${i === 0 ? 'eager' : 'lazy'}" />`
+  ).join('');
+
+  // Thumbnails — only if more than 1 image
+  if (images.length > 1) {
+    thumbsEl.style.display = '';
+    thumbsEl.innerHTML = images.map((src, i) =>
+      `<img class="g-thumb ${i === 0 ? 'active' : ''}" src="${src}" alt="" onclick="goTo(${i})" loading="lazy" />`
+    ).join('');
+    if (hint) hint.style.display = '';
+  }
+
+  updateUI();
+  attachSwipe();
+}
+
+function goTo(idx) {
+  if (!images.length) return;
+  idx = Math.max(0, Math.min(images.length - 1, idx));
+
+  // Swap active image
+  document.querySelectorAll('#gallery-stage img')[cur]?.classList.remove('active');
+  document.querySelectorAll('.g-thumb')[cur]?.classList.remove('active');
+
+  cur = idx;
+
+  document.querySelectorAll('#gallery-stage img')[cur]?.classList.add('active');
+  const thumb = document.querySelectorAll('.g-thumb')[cur];
+  if (thumb) {
+    thumb.classList.add('active');
+    thumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  }
+  updateUI();
+}
+
+function updateUI() {
+  document.getElementById('g-counter').textContent = (cur + 1) + ' / ' + images.length;
+  const prev = document.getElementById('btn-prev');
+  const next = document.getElementById('btn-next');
+  if (images.length <= 1) {
+    prev.style.display = 'none';
+    next.style.display = 'none';
+    document.getElementById('g-counter').style.display = 'none';
+  } else {
+    prev.disabled = cur === 0;
+    next.disabled = cur === images.length - 1;
+  }
+}
+
+document.getElementById('btn-prev').addEventListener('click', () => goTo(cur - 1));
+document.getElementById('btn-next').addEventListener('click', () => goTo(cur + 1));
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowLeft')  goTo(cur - 1);
+  if (e.key === 'ArrowRight') goTo(cur + 1);
+});
+
+// Touch / swipe — robust version
+function attachSwipe() {
+  const stage = document.getElementById('gallery-stage');
+
+  stage.addEventListener('touchstart', e => {
+    touchX = e.touches[0].clientX;
+    touchY = e.touches[0].clientY;
+    isDragging = true;
+  }, { passive: true });
+
+  stage.addEventListener('touchmove', e => {
+    if (!isDragging) return;
+    const dx = Math.abs(e.touches[0].clientX - touchX);
+    const dy = Math.abs(e.touches[0].clientY - touchY);
+    // If horizontal swipe is dominant, prevent page scroll
+    if (dx > dy && dx > 8) e.preventDefault();
+  }, { passive: false });
+
+  stage.addEventListener('touchend', e => {
+    if (!isDragging) return;
+    isDragging = false;
+    const dx = e.changedTouches[0].clientX - touchX;
+    const dy = e.changedTouches[0].clientY - touchY;
+    // Only trigger if horizontal movement is dominant and exceeds 40px
+    if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) {
+      goTo(dx < 0 ? cur + 1 : cur - 1);
+    }
+  }, { passive: true });
+
+  stage.addEventListener('touchcancel', () => { isDragging = false; }, { passive: true });
+}
+
+/* ═══════════════════════════
+   LOAD LISTING DATA
+═══════════════════════════ */
+async function loadListing() {
+  const id = new URLSearchParams(window.location.search).get('id');
+  if (!id) { window.location.href = 'yacht-inventory.html'; return; }
+
+  try {
+    const res = await fetch('data/content.json?_=' + Date.now());
+    const data = await res.json();
+
+    const boat = ((data.inventory || {}).yachts || []).find(y => y.id === id);
+    if (!boat) { window.location.href = 'yacht-inventory.html'; return; }
+
+    // Set page title
+    document.title = boat.name + ' – Elite Autohaus';
+
+    // Title & price
+    document.getElementById('listing-title').textContent = boat.name;
+    document.getElementById('listing-price').textContent = boat.price || '';
+
+    // Status
+    const statusMap = {
+      available:    { label:'Available',   cls:'available' },
+      sold:         { label:'Sold',        cls:'sold' },
+      'coming-soon':{ label:'Coming Soon', cls:'coming-soon' }
+    };
+    const st = statusMap[boat.status] || { label: boat.status || 'Available', cls: '' };
+    document.getElementById('status-wrap').innerHTML =
+      `<span class="status-badge ${st.cls}"><span class="status-dot"></span>${st.label}</span>`;
+
+    // Description
+    const desc = (boat.description || '').trim();
+    document.getElementById('listing-desc').innerHTML = desc
+      ? desc.split('\n\n').map(p => `<p>${p.replace(/\n/g,'<br>')}</p>`).join('')
+      : '<p style="color:var(--muted);">Description coming soon.</p>';
+
+    // Gallery
+    const imgs = (boat.images && boat.images.length)
+      ? boat.images.filter(Boolean)
+      : (boat.image ? [boat.image] : []);
+    if (imgs.length) buildGallery(imgs);
+
+    // Form
+    document.getElementById('form-listing').value = boat.name;
+    document.getElementById('form-subject').value = 'Yacht Enquiry: ' + boat.name;
+
+    // Formspree action
+    const fid = (data.site || {}).formspree || '';
+    if (fid && fid !== 'YOUR_FORMSPREE_ID') {
+      document.getElementById('eq-form').action = 'https://formspree.io/f/' + fid;
+    }
+
+  } catch(e) {
+    document.getElementById('listing-title').textContent = 'Could not load listing.';
+  }
+}
+
+/* ═══════════════════════════
+   FORM SUBMIT
+═══════════════════════════ */
+document.getElementById('eq-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const btn = document.getElementById('eq-submit');
+  const form = e.target;
+  const errEl = document.getElementById('eq-error');
+  errEl.style.display = 'none';
+
+  if (!form.action || !form.action.includes('formspree')) {
+    errEl.innerHTML = '⚠️ Email not configured yet. Please email us directly at <a href="mailto:sales.eliteautohaus@gmail.com" style="color:#fff;">sales.eliteautohaus@gmail.com</a>';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  const origText = btn.textContent;
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    });
+    if (res.ok) {
+      form.style.display = 'none';
+      document.getElementById('eq-success').style.display = 'block';
+    } else {
+      throw new Error('Send failed');
+    }
+  } catch {
+    errEl.innerHTML = '⚠️ Could not send. Please email us at <a href="mailto:sales.eliteautohaus@gmail.com" style="color:#fff;">sales.eliteautohaus@gmail.com</a>';
+    errEl.style.display = 'block';
+    btn.textContent = origText;
+    btn.disabled = false;
+  }
+});
+
+loadListing();
+</script>
+</body>
+</html>
