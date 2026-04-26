@@ -63,16 +63,12 @@
     },
     "gallery": [
       {
-        "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777173871/fdf2b5a7rnyf1fzxepg3.png",
-        "alt": "Gallery 1"
-      },
-      {
         "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777173873/e1adzpdekanugs9hdqjj.png",
-        "alt": "Gallery 2"
+        "alt": "Gallery photo 1"
       },
       {
         "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777173873/xv6vsqterwnhhbuzgtru.png",
-        "alt": "Gallery 3"
+        "alt": "Gallery photo 2"
       }
     ]
   },
