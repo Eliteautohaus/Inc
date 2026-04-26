@@ -63,16 +63,12 @@
     },
     "gallery": [
       {
-        "image": "images/gallery1.jpg",
-        "alt": "Luxury vehicle 1"
-      },
-      {
         "image": "images/gallery2.jpg",
-        "alt": "Luxury vehicle 2"
+        "alt": "Gallery photo 1"
       },
       {
         "image": "images/gallery3.jpg",
-        "alt": "Luxury vehicle 3"
+        "alt": "Gallery photo 2"
       }
     ]
   },
