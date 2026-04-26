@@ -112,10 +112,14 @@ function renderGrid(statusFilter) {
     const isSoon = boat.status === 'coming-soon';
     const tagClass = isSold ? 'sold' : isSoon ? 'coming-soon' : '';
     const tagLabel = isSold ? 'Sold' : isSoon ? 'Coming Soon' : 'Available';
-    const imgStyle = (isSold || isSoon) ? 'filter:brightness(0.45) grayscale(0.5);' : '';
+    const dimFilter = (isSold || isSoon) ? 'filter:brightness(0.4) grayscale(0.5);' : '';
     return `
-      <a class="inv-card" data-status="${boat.status||'available'}" href="listing.html?id=${boat.id}" onclick="void(0)">
-        ${img ? `<img src="${img}" alt="${boat.name}" style="${imgStyle}" onerror="this.style.display='none'" />` : '<div style="aspect-ratio:4/3;background:var(--dark3);"></div>'}
+      <a class="inv-card" data-status="${boat.status||'available'}" href="listing.html?id=${boat.id}">
+        <div class="inv-card-img-wrap">
+          ${img
+            ? `<img src="${img}" alt="${boat.name}" style="object-fit:cover;width:100%;height:100%;${dimFilter}" onerror="this.parentElement.style.background='var(--dark3)';this.style.display='none'" />`
+            : ''}
+        </div>
         <div class="inv-card-info">
           <span class="inv-tag ${tagClass}">${tagLabel}</span>
           <h3>${boat.name}</h3>

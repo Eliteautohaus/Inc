@@ -35,7 +35,7 @@
 
 <!-- HERO -->
 <section class="hero-full">
-  <img id="yacht-hero-img" src="" alt="Elite Yacht Sales" style="display:none;" />
+  <img id="yacht-hero-img" src="" alt="Elite Yacht Sales" style="display:none;width:100%;height:100%;object-fit:cover;object-position:center;" />
   <div class="hero-full-overlay">
     <div class="hero-full-text">
       <h1>Elite Yacht Sales</h1>
@@ -137,7 +137,11 @@
     const heroSrc = ((data.pages || {}).yachtsales || {}).heroImage || '';
     if (heroSrc) {
       const img = document.getElementById('yacht-hero-img');
-      if (img) { img.src = heroSrc; img.style.display = ''; img.onerror = function() { this.style.display = 'none'; }; }
+      if (img) {
+        img.src = heroSrc;
+        img.removeAttribute('style'); // remove display:none — CSS handles sizing
+        img.onerror = function() { this.style.display = 'none'; };
+      }
     }
   } catch(e) {}
 })();

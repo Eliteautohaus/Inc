@@ -15,13 +15,13 @@
       -webkit-user-select: none;
     }
 
-    /* Main image stage */
+    /* Main image stage — 16:9 on desktop, taller on mobile */
     .gallery-stage {
       position: relative;
       width: 100%;
-      aspect-ratio: 16 / 9;
+      aspect-ratio: 4 / 3;
       overflow: hidden;
-      background: #000;
+      background: var(--dark3);
       touch-action: pan-y;
     }
 
@@ -31,11 +31,11 @@
       inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
+      object-position: center;
       opacity: 0;
-      transition: opacity 0.3s ease;
+      transition: opacity 0.35s ease;
       pointer-events: none;
-      background: #000;
     }
     .gallery-stage img.active { opacity: 1; }
 
@@ -94,15 +94,17 @@
     .gallery-thumbs::-webkit-scrollbar { display: none; }
     .g-thumb {
       flex-shrink: 0;
-      width: 72px;
-      height: 54px;
+      width: 80px;
+      height: 60px;
       object-fit: cover;
+      object-position: center;
       opacity: 0.45;
       cursor: pointer;
       border: 2px solid transparent;
       transition: opacity 0.2s, border-color 0.2s;
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
+      display: block;
     }
     .g-thumb.active { opacity: 1; border-color: #fff; }
     .g-thumb:hover { opacity: 0.8; }
