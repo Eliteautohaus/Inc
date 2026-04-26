@@ -320,18 +320,118 @@
 
   <!-- SERVICE -->
   <div class="panel" id="panel-service">
+
+    <!-- AUTOMOTIVE -->
     <div class="card">
       <div class="ctitle">🔧 Automotive Services</div>
-      <div class="two-col">
-        <div class="field"><label>Service 1</label><input type="text" id="as1n" value="Maintenance" oninput="markDirty()" /></div>
-        <div class="field"><label>Description</label><input type="text" id="as1d" value="Full Dealer Scheduled Maintenance" oninput="markDirty()" /></div>
-        <div class="field"><label>Service 2</label><input type="text" id="as2n" value="Tires & Wheel Alignment" oninput="markDirty()" /></div>
-        <div class="field"><label>Description</label><input type="text" id="as2d" value="Tire Sales, Mounting, Balancing, Laser Alignments" oninput="markDirty()" /></div>
-        <div class="field"><label>Service 3</label><input type="text" id="as3n" value="Brakes & Suspension" oninput="markDirty()" /></div>
-        <div class="field"><label>Description</label><input type="text" id="as3d" value="Full Brake & Suspension Service" oninput="markDirty()" /></div>
+      <p style="color:var(--muted);font-size:0.82rem;margin-bottom:1.2rem;line-height:1.6;">Edit the name, description and photo for each automotive service tile.</p>
+
+      <!-- Auto Service 1 -->
+      <div style="border:1px solid var(--dark3);padding:1.2rem;margin-bottom:1rem;">
+        <div style="font-family:'Rajdhani',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.8rem;">Service 1</div>
+        <div class="two-col">
+          <div class="field"><label>Name</label><input type="text" id="as1n" oninput="markDirty()" /></div>
+          <div class="field"><label>Description</label><input type="text" id="as1d" oninput="markDirty()" /></div>
+        </div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">Photo</div>
+        <div id="svc-auto1-photos"></div>
+        <div class="uploader compact" id="uz-svc-auto1" ondragover="dov(event,'uz-svc-auto1')" ondragleave="dol('uz-svc-auto1')" ondrop="dof(event,'uz-svc-auto1','svc-auto1',1)">
+          <input type="file" accept="image/*" onchange="hfc(event,'uz-svc-auto1','svc-auto1',1)" />
+          <div class="uploader-inner compact"><span class="uicon">📷</span><div class="utxt"><strong>Upload photo</strong></div></div>
+        </div>
+        <div class="uprog" id="prog-svc-auto1"><div class="uprog-bar" id="progbar-svc-auto1"></div></div>
       </div>
-      <button class="sbtn" id="btn-service" onclick="saveSection('service',this)">💾 Save Services</button>
+
+      <!-- Auto Service 2 -->
+      <div style="border:1px solid var(--dark3);padding:1.2rem;margin-bottom:1rem;">
+        <div style="font-family:'Rajdhani',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.8rem;">Service 2</div>
+        <div class="two-col">
+          <div class="field"><label>Name</label><input type="text" id="as2n" oninput="markDirty()" /></div>
+          <div class="field"><label>Description</label><input type="text" id="as2d" oninput="markDirty()" /></div>
+        </div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">Photo</div>
+        <div id="svc-auto2-photos"></div>
+        <div class="uploader compact" id="uz-svc-auto2" ondragover="dov(event,'uz-svc-auto2')" ondragleave="dol('uz-svc-auto2')" ondrop="dof(event,'uz-svc-auto2','svc-auto2',1)">
+          <input type="file" accept="image/*" onchange="hfc(event,'uz-svc-auto2','svc-auto2',1)" />
+          <div class="uploader-inner compact"><span class="uicon">📷</span><div class="utxt"><strong>Upload photo</strong></div></div>
+        </div>
+        <div class="uprog" id="prog-svc-auto2"><div class="uprog-bar" id="progbar-svc-auto2"></div></div>
+      </div>
+
+      <!-- Auto Service 3 -->
+      <div style="border:1px solid var(--dark3);padding:1.2rem;margin-bottom:1rem;">
+        <div style="font-family:'Rajdhani',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.8rem;">Service 3</div>
+        <div class="two-col">
+          <div class="field"><label>Name</label><input type="text" id="as3n" oninput="markDirty()" /></div>
+          <div class="field"><label>Description</label><input type="text" id="as3d" oninput="markDirty()" /></div>
+        </div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">Photo</div>
+        <div id="svc-auto3-photos"></div>
+        <div class="uploader compact" id="uz-svc-auto3" ondragover="dov(event,'uz-svc-auto3')" ondragleave="dol('uz-svc-auto3')" ondrop="dof(event,'uz-svc-auto3','svc-auto3',1)">
+          <input type="file" accept="image/*" onchange="hfc(event,'uz-svc-auto3','svc-auto3',1)" />
+          <div class="uploader-inner compact"><span class="uicon">📷</span><div class="utxt"><strong>Upload photo</strong></div></div>
+        </div>
+        <div class="uprog" id="prog-svc-auto3"><div class="uprog-bar" id="progbar-svc-auto3"></div></div>
+      </div>
+
+      <button class="sbtn" id="btn-service-auto" onclick="saveSection('service',this)">💾 Save Automotive Services</button>
     </div>
+
+    <!-- MARINE -->
+    <div class="card">
+      <div class="ctitle">⚓ Marine Services</div>
+
+      <!-- Marine Service 1 -->
+      <div style="border:1px solid var(--dark3);padding:1.2rem;margin-bottom:1rem;">
+        <div style="font-family:'Rajdhani',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.8rem;">Service 1</div>
+        <div class="two-col">
+          <div class="field"><label>Name</label><input type="text" id="ms1n" oninput="markDirty()" /></div>
+          <div class="field"><label>Description</label><input type="text" id="ms1d" oninput="markDirty()" /></div>
+        </div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">Photo</div>
+        <div id="svc-mar1-photos"></div>
+        <div class="uploader compact" id="uz-svc-mar1" ondragover="dov(event,'uz-svc-mar1')" ondragleave="dol('uz-svc-mar1')" ondrop="dof(event,'uz-svc-mar1','svc-mar1',1)">
+          <input type="file" accept="image/*" onchange="hfc(event,'uz-svc-mar1','svc-mar1',1)" />
+          <div class="uploader-inner compact"><span class="uicon">📷</span><div class="utxt"><strong>Upload photo</strong></div></div>
+        </div>
+        <div class="uprog" id="prog-svc-mar1"><div class="uprog-bar" id="progbar-svc-mar1"></div></div>
+      </div>
+
+      <!-- Marine Service 2 -->
+      <div style="border:1px solid var(--dark3);padding:1.2rem;margin-bottom:1rem;">
+        <div style="font-family:'Rajdhani',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.8rem;">Service 2</div>
+        <div class="two-col">
+          <div class="field"><label>Name</label><input type="text" id="ms2n" oninput="markDirty()" /></div>
+          <div class="field"><label>Description</label><input type="text" id="ms2d" oninput="markDirty()" /></div>
+        </div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">Photo</div>
+        <div id="svc-mar2-photos"></div>
+        <div class="uploader compact" id="uz-svc-mar2" ondragover="dov(event,'uz-svc-mar2')" ondragleave="dol('uz-svc-mar2')" ondrop="dof(event,'uz-svc-mar2','svc-mar2',1)">
+          <input type="file" accept="image/*" onchange="hfc(event,'uz-svc-mar2','svc-mar2',1)" />
+          <div class="uploader-inner compact"><span class="uicon">📷</span><div class="utxt"><strong>Upload photo</strong></div></div>
+        </div>
+        <div class="uprog" id="prog-svc-mar2"><div class="uprog-bar" id="progbar-svc-mar2"></div></div>
+      </div>
+
+      <!-- Marine Service 3 -->
+      <div style="border:1px solid var(--dark3);padding:1.2rem;margin-bottom:1rem;">
+        <div style="font-family:'Rajdhani',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.8rem;">Service 3</div>
+        <div class="two-col">
+          <div class="field"><label>Name</label><input type="text" id="ms3n" oninput="markDirty()" /></div>
+          <div class="field"><label>Description</label><input type="text" id="ms3d" oninput="markDirty()" /></div>
+        </div>
+        <div style="font-family:'Rajdhani',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.5rem;">Photo</div>
+        <div id="svc-mar3-photos"></div>
+        <div class="uploader compact" id="uz-svc-mar3" ondragover="dov(event,'uz-svc-mar3')" ondragleave="dol('uz-svc-mar3')" ondrop="dof(event,'uz-svc-mar3','svc-mar3',1)">
+          <input type="file" accept="image/*" onchange="hfc(event,'uz-svc-mar3','svc-mar3',1)" />
+          <div class="uploader-inner compact"><span class="uicon">📷</span><div class="utxt"><strong>Upload photo</strong></div></div>
+        </div>
+        <div class="uprog" id="prog-svc-mar3"><div class="uprog-bar" id="progbar-svc-mar3"></div></div>
+      </div>
+
+      <button class="sbtn" id="btn-service-marine" onclick="saveSection('service',this)">💾 Save Marine Services</button>
+    </div>
+
   </div>
 
   <!-- FINANCING -->
@@ -851,6 +951,17 @@ function populate() {
   sv('bb-btnurl',  bb.buttonUrl  || 'http://www.boat-bids.com');
   if (bb.image) { slotImages.boatbids = [bb.image]; renderGrid('boatbids'); }
 
+  // Service fields
+  const svc = (siteData.pages||{}).service || {};
+  const sauto = svc.auto || [];
+  const smarine = svc.marine || [];
+  if (sauto[0]) { sv('as1n', sauto[0].name); sv('as1d', sauto[0].desc); if (sauto[0].image) { slotImages['svc-auto1']=[sauto[0].image]; renderGrid('svc-auto1'); } }
+  if (sauto[1]) { sv('as2n', sauto[1].name); sv('as2d', sauto[1].desc); if (sauto[1].image) { slotImages['svc-auto2']=[sauto[1].image]; renderGrid('svc-auto2'); } }
+  if (sauto[2]) { sv('as3n', sauto[2].name); sv('as3d', sauto[2].desc); if (sauto[2].image) { slotImages['svc-auto3']=[sauto[2].image]; renderGrid('svc-auto3'); } }
+  if (smarine[0]) { sv('ms1n', smarine[0].name); sv('ms1d', smarine[0].desc); if (smarine[0].image) { slotImages['svc-mar1']=[smarine[0].image]; renderGrid('svc-mar1'); } }
+  if (smarine[1]) { sv('ms2n', smarine[1].name); sv('ms2d', smarine[1].desc); if (smarine[1].image) { slotImages['svc-mar2']=[smarine[1].image]; renderGrid('svc-mar2'); } }
+  if (smarine[2]) { sv('ms3n', smarine[2].name); sv('ms3d', smarine[2].desc); if (smarine[2].image) { slotImages['svc-mar3']=[smarine[2].image]; renderGrid('svc-mar3'); } }
+
   renderInventory();
   renderUsers();
   updateGHInfo();
@@ -873,7 +984,26 @@ function saveSection(section, btn) {
   }
   if (section === 'sell')     { if (!siteData.pages) siteData.pages={}; siteData.pages.sell = { title:gv('sell-title'), intro:gv('sell-intro') }; }
   if (section === 'shopper')  { if (!siteData.pages) siteData.pages={}; siteData.pages.shopper = { steps:[{heading:gv('step1h'),text:gv('step1t')},{heading:gv('step2h'),text:gv('step2t')},{heading:gv('step3h'),text:gv('step3t')}] }; }
-  if (section === 'service')  { if (!siteData.pages) siteData.pages={}; siteData.pages.service = { auto:[{name:gv('as1n'),desc:gv('as1d')},{name:gv('as2n'),desc:gv('as2d')},{name:gv('as3n'),desc:gv('as3d')}] }; }
+  if (section === 'service') {
+    if (!siteData.pages) siteData.pages = {};
+    const existing = siteData.pages.service || {};
+    const eauto = existing.auto || [{},{},{}];
+    const emarine = existing.marine || [{},{},{}];
+    siteData.pages.service = {
+      autoHeading: 'Automotive Service',
+      marineHeading: 'Marine Service',
+      auto: [
+        { name: gv('as1n'), desc: gv('as1d'), image: slotImages['svc-auto1'][0] || eauto[0].image || '' },
+        { name: gv('as2n'), desc: gv('as2d'), image: slotImages['svc-auto2'][0] || eauto[1].image || '' },
+        { name: gv('as3n'), desc: gv('as3d'), image: slotImages['svc-auto3'][0] || eauto[2].image || '' }
+      ],
+      marine: [
+        { name: gv('ms1n'), desc: gv('ms1d'), image: slotImages['svc-mar1'][0] || emarine[0].image || '' },
+        { name: gv('ms2n'), desc: gv('ms2d'), image: slotImages['svc-mar2'][0] || emarine[1].image || '' },
+        { name: gv('ms3n'), desc: gv('ms3d'), image: slotImages['svc-mar3'][0] || emarine[2].image || '' }
+      ]
+    };
+  }
   if (section === 'financing'){ if (!siteData.pages) siteData.pages={}; siteData.pages.financing = { email:gv('fin-email'), intro:gv('fin-intro') }; }
   if (section === 'yachtsales'){ if (!siteData.pages) siteData.pages={}; siteData.pages.yachtsales = { heading:gv('ys-heading'), tagline:gv('ys-tagline'), intro:gv('ys-intro'), heroImage: slotImages.yachthero[0]||((siteData.pages||{}).yachtsales||{}).heroImage||'' }; }
   if (section === 'boatbids')  { if (!siteData.pages) siteData.pages={}; siteData.pages.boatbids = { heading:gv('bb-heading'), body:gv('bb-body'), buttonText:gv('bb-btntext'), buttonUrl:gv('bb-btnurl'), image: slotImages.boatbids[0]||((siteData.pages||{}).boatbids||{}).image||'' }; }
@@ -957,7 +1087,9 @@ function addListing() {
 /* ══════════════════════════════════════
    CLOUDINARY UPLOAD ENGINE
 ══════════════════════════════════════ */
-const slotImages = { hero:[], gallery:[], yachthero:[], boatbids:[], listing:[], test:[] };
+const slotImages = { hero:[], gallery:[], yachthero:[], boatbids:[], listing:[], test:[],
+  'svc-auto1':[], 'svc-auto2':[], 'svc-auto3':[],
+  'svc-mar1':[], 'svc-mar2':[], 'svc-mar3':[] };
 
 function getCL() { return { cloud: localStorage.getItem('cl_cloud')||'', preset: localStorage.getItem('cl_preset')||'' }; }
 
@@ -1046,6 +1178,24 @@ async function handleFiles(files, slot, max) {
     showToast('✅ Boat Bids image saved! Refresh your site in ~30 seconds.');
   }
 
+  // Service photos — auto-save when uploaded
+  const svcSlots = ['svc-auto1','svc-auto2','svc-auto3','svc-mar1','svc-mar2','svc-mar3'];
+  if (svcSlots.includes(slot)) {
+    if (!siteData.pages) siteData.pages = {};
+    if (!siteData.pages.service) siteData.pages.service = { auto:[{},{},{}], marine:[{},{},{}] };
+    const s = siteData.pages.service;
+    if (!s.auto)   s.auto   = [{},{},{}];
+    if (!s.marine) s.marine = [{},{},{}];
+    // Map slot to the right array/index
+    const slotMap = { 'svc-auto1':[s.auto,0], 'svc-auto2':[s.auto,1], 'svc-auto3':[s.auto,2], 'svc-mar1':[s.marine,0], 'svc-mar2':[s.marine,1], 'svc-mar3':[s.marine,2] };
+    const [arr, idx] = slotMap[slot];
+    if (!arr[idx]) arr[idx] = {};
+    arr[idx].image = slotImages[slot][0] || '';
+    showToast('📸 Service photo uploaded — saving...');
+    await pushToGitHub(null);
+    showToast('✅ Service photo saved! Refresh your site in ~30 seconds.');
+  }
+
   if (slot === 'listing') {
     // Auto-save listing photos immediately without waiting for Save button
     if (editIdx >= 0 && siteData.inventory && siteData.inventory.yachts[editIdx]) {
@@ -1096,7 +1246,12 @@ async function doUpload(file, cloud, preset, onProg) {
 }
 
 function renderGrid(slot) {
-  const gridId = { listing:'listing-photo-grid', gallery:'gallery-photos', hero:'hero-photos', yachthero:'yachthero-photos', boatbids:'boatbids-photos', test:'test-photos' }[slot];
+  const gridId = {
+    listing:'listing-photo-grid', gallery:'gallery-photos', hero:'hero-photos',
+    yachthero:'yachthero-photos', boatbids:'boatbids-photos', test:'test-photos',
+    'svc-auto1':'svc-auto1-photos', 'svc-auto2':'svc-auto2-photos', 'svc-auto3':'svc-auto3-photos',
+    'svc-mar1':'svc-mar1-photos',  'svc-mar2':'svc-mar2-photos',  'svc-mar3':'svc-mar3-photos'
+  }[slot];
   const grid = document.getElementById(gridId); if (!grid) return;
   const imgs = slotImages[slot]||[];
   grid.className = imgs.length ? 'photo-grid' : '';
@@ -1135,6 +1290,16 @@ function removePhoto(slot, idx) {
     if (!siteData.pages) siteData.pages = {};
     if (!siteData.pages.boatbids) siteData.pages.boatbids = {};
     siteData.pages.boatbids.image = slotImages.boatbids[0] || '';
+    pushToGitHub(null);
+  }
+  // Service photo remove
+  const svcSlots2 = ['svc-auto1','svc-auto2','svc-auto3','svc-mar1','svc-mar2','svc-mar3'];
+  if (svcSlots2.includes(slot)) {
+    const s = ((siteData.pages||{}).service||{});
+    if (s.auto && s.marine) {
+      const m = {'svc-auto1':[s.auto,0],'svc-auto2':[s.auto,1],'svc-auto3':[s.auto,2],'svc-mar1':[s.marine,0],'svc-mar2':[s.marine,1],'svc-mar3':[s.marine,2]}[slot];
+      if (m && m[0][m[1]]) m[0][m[1]].image = '';
+    }
     pushToGitHub(null);
   }
 }

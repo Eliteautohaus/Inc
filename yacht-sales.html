@@ -34,15 +34,17 @@
 </div>
 
 <!-- HERO -->
-<section class="hero-full">
-  <img id="yacht-hero-img" src="" alt="Elite Yacht Sales" />
+<div class="hero-full">
+  <div class="img-cover-wrap ratio-hero">
+    <img id="yacht-hero-img" src="" alt="Elite Yacht Sales" />
+  </div>
   <div class="hero-full-overlay">
     <div class="hero-full-text">
       <h1 id="ys-heading">Elite Yacht Sales</h1>
       <p id="ys-tagline">Our passion doesn't end where the rubber hits the road.</p>
     </div>
   </div>
-</section>
+</div>
 
 <!-- INTRO -->
 <section class="section section-black">
@@ -112,10 +114,12 @@
       </div>
 
       <!-- RIGHT: logo / image box -->
-      <div id="bb-logo-box" style="background:var(--dark2);border:1px solid var(--dark3);padding:clamp(1.5rem,4vw,3rem);text-align:center;overflow:hidden;">
-        <!-- If a custom image is set it shows here, otherwise the text logo shows -->
-        <img id="bb-img" src="" alt="Boat Bids" style="display:none;width:100%;height:200px;object-fit:cover;object-position:center;margin-bottom:1rem;" />
-        <div id="bb-text-logo">
+      <div id="bb-logo-box" style="background:var(--dark2);border:1px solid var(--dark3);overflow:hidden;">
+        <!-- If image uploaded: shows as cover image. Otherwise shows text logo -->
+        <div id="bb-img-wrap" class="img-cover-wrap ratio-4-3" style="display:none;">
+          <img id="bb-img" src="" alt="Boat Bids" />
+        </div>
+        <div id="bb-text-logo" style="padding:clamp(1.5rem,4vw,3rem);text-align:center;">
           <div style="font-size:3rem;margin-bottom:1rem;">⚓</div>
           <div style="font-family:'Rajdhani',sans-serif;font-size:1.8rem;font-weight:700;letter-spacing:0.1em;color:var(--white);">BOAT-BIDS</div>
           <div style="font-family:'Rajdhani',sans-serif;font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-top:0.3rem;">.COM</div>
@@ -149,7 +153,7 @@
     const heroSrc = ys.heroImage || '';
     if (heroSrc) {
       const img = document.getElementById('yacht-hero-img');
-      if (img) { img.src = heroSrc; img.onerror = function() { this.src = ''; }; }
+      if (img) { img.src = heroSrc; }
     }
 
     // Hero text
@@ -169,11 +173,13 @@
     if (bb.buttonText) document.getElementById('bb-btn').textContent = bb.buttonText;
     if (bb.buttonUrl)  document.getElementById('bb-link').href = bb.buttonUrl;
 
-    // Boat Bids image — if set, show image and hide text logo
+    // Boat Bids image — show cover wrap, hide text logo
     if (bb.image) {
+      const imgWrap = document.getElementById('bb-img-wrap');
       const img = document.getElementById('bb-img');
       const txt = document.getElementById('bb-text-logo');
-      if (img) { img.src = bb.image; img.style.display = 'block'; }
+      if (img) img.src = bb.image;
+      if (imgWrap) imgWrap.style.display = '';
       if (txt) txt.style.display = 'none';
     }
 

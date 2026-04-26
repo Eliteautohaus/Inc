@@ -6,39 +6,22 @@
   <title>Listing – Elite Autohaus</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* ── GALLERY ── */
+    /* Gallery stage — uses .img-cover-wrap ratio-4-3 from global CSS */
     .gallery-outer {
-      background: #000;
+      background: var(--dark3);
       position: relative;
       width: 100%;
       user-select: none;
       -webkit-user-select: none;
     }
-
-    /* Main image stage — padding-top holds ratio, avoids height:auto conflict with global img rule */
-    .gallery-stage {
-      position: relative;
-      width: 100%;
-      padding-top: 75%; /* 4:3 ratio */
-      overflow: hidden;
-      background: var(--dark3);
-      touch-action: pan-y;
+    /* Override: images in gallery stage fade in/out */
+    .gallery-outer .img-cover-wrap img {
+      opacity: 0 !important;
+      transition: opacity 0.35s ease !important;
     }
-
-    /* Images — absolutely positioned to fill stage completely */
-    .gallery-stage img {
-      position: absolute !important;
-      top: 0 !important; left: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-      object-fit: cover !important;
-      object-position: center !important;
-      max-width: none !important;
-      opacity: 0;
-      transition: opacity 0.35s ease;
-      pointer-events: none;
+    .gallery-outer .img-cover-wrap img.active {
+      opacity: 1 !important;
     }
-    .gallery-stage img.active { opacity: 1; }
 
     /* Arrow buttons */
     .g-arrow {
@@ -236,8 +219,8 @@
 
 <!-- GALLERY -->
 <div class="gallery-outer" id="gallery-outer" style="display:none;">
-  <div class="gallery-stage" id="gallery-stage">
-    <!-- images injected -->
+  <div class="img-cover-wrap ratio-4-3" id="gallery-stage" style="touch-action:pan-y;">
+    <!-- images injected by JS -->
   </div>
   <button class="g-arrow prev" id="btn-prev" aria-label="Previous photo">&#8592;</button>
   <button class="g-arrow next" id="btn-next" aria-label="Next photo">&#8594;</button>
@@ -333,20 +316,18 @@ function buildGallery(imgs) {
   images = imgs;
   if (!images.length) return;
 
-  const stage = document.getElementById('gallery-stage');
+  const stage   = document.getElementById('gallery-stage');
   const thumbsEl = document.getElementById('gallery-thumbs');
-  const outer = document.getElementById('gallery-outer');
-  const hint = document.getElementById('swipe-hint');
+  const outer   = document.getElementById('gallery-outer');
+  const hint    = document.getElementById('swipe-hint');
 
-  // Show gallery container
   outer.style.display = '';
 
-  // Build main images
+  // Build images inside the img-cover-wrap stage
   stage.innerHTML = images.map((src, i) =>
     `<img src="${src}" class="${i === 0 ? 'active' : ''}" alt="Photo ${i+1}" loading="${i === 0 ? 'eager' : 'lazy'}" />`
   ).join('');
 
-  // Thumbnails — only if more than 1 image
   if (images.length > 1) {
     thumbsEl.style.display = '';
     thumbsEl.innerHTML = images.map((src, i) =>

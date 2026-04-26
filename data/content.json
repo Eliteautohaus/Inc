@@ -43,7 +43,8 @@
   ],
   "home": {
     "hero": {
-      "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777172884/aay95vepkp5g3n34lwww.png"
+      "image": "images/hero.jpg",
+      "imageAlt": "Elite Autohaus"
     },
     "intro": {
       "heading": "About Elite Autohaus",
@@ -63,16 +64,16 @@
     },
     "gallery": [
       {
-        "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777172898/eo0mslmbopklxq2tg9s2.png",
-        "alt": "Gallery photo 1"
+        "image": "images/gallery1.jpg",
+        "alt": "Luxury vehicle 1"
       },
       {
-        "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777172899/sxllxyoajkwzmgecx0xo.png",
-        "alt": "Gallery photo 2"
+        "image": "images/gallery2.jpg",
+        "alt": "Luxury vehicle 2"
       },
       {
-        "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777172899/hv0buzf3zhzrliychjqp.png",
-        "alt": "Gallery photo 3"
+        "image": "images/gallery3.jpg",
+        "alt": "Luxury vehicle 3"
       }
     ]
   },
@@ -181,18 +182,46 @@
     ]
   },
   "footer": {
-    "copyright": "Copyright © 2026 Elite Autohaus Inc – All Rights Reserved."
+    "copyright": "Copyright \u00a9 2026 Elite Autohaus Inc \u2013 All Rights Reserved."
   },
   "pages": {
-    "yachtsales": {
-      "heroImage": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777172875/tj0pfg4i7sd0vpgh2hgp.png"
-    },
-    "boatbids": {
-      "heading": "www.Boat-Bids.com",
-      "body": "Check out Boat Bids for an innovative platform providing consumers an online auction marketplace to buy and sell new or used boats.\n\nAuctions launch every day and run for 7 days. Find incredible deals or list your vessel to thousands of motivated buyers.",
-      "buttonText": "Learn More About Boat Bids",
-      "buttonUrl": "http://www.boat-bids.com",
-      "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777173071/hyyro03hl3voqkqmuuxe.png"
+    "service": {
+      "autoHeading": "Automotive Service",
+      "marineHeading": "Marine Service",
+      "auto": [
+        {
+          "name": "Maintenance",
+          "desc": "Full Dealer Scheduled Maintenance \u2014 oil changes, filters, fluid services and more, performed to manufacturer specifications.",
+          "image": ""
+        },
+        {
+          "name": "Tires & Wheel Alignment",
+          "desc": "Tire sales, mounting & balancing. Laser Guided Wheel Alignments to keep you driving straight and safe.",
+          "image": ""
+        },
+        {
+          "name": "Brakes & Suspension",
+          "desc": "Full brake & suspension service \u2014 pads, rotors, calipers, shocks, struts, control arms and more.",
+          "image": ""
+        }
+      ],
+      "marine": [
+        {
+          "name": "Maintenance",
+          "desc": "Full engine and drive maintenance. Keep your vessel running at peak performance all season long.",
+          "image": ""
+        },
+        {
+          "name": "Detailing & Bottom Paint",
+          "desc": "Hull detailing, polish, and antifouling bottom paint \u2014 protect your investment and keep it looking showroom-fresh.",
+          "image": ""
+        },
+        {
+          "name": "Winterization & Shrink Wrap",
+          "desc": "Engine and water system winterization plus professional shrink wrapping to protect your boat through the off-season.",
+          "image": ""
+        }
+      ]
     }
   }
 }
