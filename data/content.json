@@ -310,10 +310,10 @@
       },
       {
         "id": "new-1777223751944",
-        "name": "New Vessel",
-        "price": "",
-        "status": "available",
-        "description": "",
+        "name": "2006 Bayliner Ciera 245",
+        "price": "$49,995 CAD",
+        "status": "sold",
+        "description": "Only 244 Hours with tandem Trailer included. Recently fully serviced",
         "images": [
           "https://res.cloudinary.com/dvnleduvx/image/upload/v1777223788/s3ya4osp6r3uycz1tqll.png"
         ]
