@@ -194,7 +194,9 @@
         "price": "",
         "status": "available",
         "description": "",
-        "images": []
+        "images": [
+          "https://res.cloudinary.com/dvnleduvx/image/upload/v1777223087/xyclugj1zm7xp37t5unn.png"
+        ]
       },
       {
         "id": "new-1777222918386",
