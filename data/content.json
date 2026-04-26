@@ -185,6 +185,9 @@
   },
   "pages": {
     "yachtsales": {
+      "heading": "Elite Yacht Sales",
+      "tagline": "Our passion doesn't end where the rubber hits the road.",
+      "intro": "Let Elite Yacht Sales help you find the right vessel for your needs and budget.",
       "heroImage": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777170666/ufi875epn5beizwe083z.png"
     }
   }
