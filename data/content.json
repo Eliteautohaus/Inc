@@ -63,16 +63,16 @@
     },
     "gallery": [
       {
-        "image": "images/gallery1.jpg",
-        "alt": "Luxury vehicle 1"
+        "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777170643/giqxnm7ankshdf54m55y.png",
+        "alt": "Gallery 1"
       },
       {
-        "image": "images/gallery2.jpg",
-        "alt": "Luxury vehicle 2"
+        "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777170643/csgdszmad56krtah2tjr.png",
+        "alt": "Gallery 2"
       },
       {
-        "image": "images/gallery3.jpg",
-        "alt": "Luxury vehicle 3"
+        "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777170644/h9jvopf0ciaxofu6ptzg.png",
+        "alt": "Gallery 3"
       }
     ]
   },
