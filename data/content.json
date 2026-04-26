@@ -187,6 +187,24 @@
         "images": [
           "https://res.cloudinary.com/dvnleduvx/image/upload/v1777222732/awlyki86rjc7bfyxqlar.png"
         ]
+      },
+      {
+        "id": "new-1777222846401",
+        "name": "New Vessel",
+        "price": "",
+        "status": "available",
+        "description": "",
+        "images": []
+      },
+      {
+        "id": "new-1777222918386",
+        "name": "New Vessel",
+        "price": "",
+        "status": "available",
+        "description": "",
+        "images": [
+          "https://res.cloudinary.com/dvnleduvx/image/upload/v1777222969/ovwixrrfuck5a5q5szcx.png"
+        ]
       }
     ]
   },
