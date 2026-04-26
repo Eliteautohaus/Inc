@@ -61,7 +61,20 @@
       "buttonText": "Sell Your Car",
       "buttonUrl": "sell.html"
     },
-    "gallery": []
+    "gallery": [
+      {
+        "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777172898/eo0mslmbopklxq2tg9s2.png",
+        "alt": "Gallery photo 1"
+      },
+      {
+        "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777172899/sxllxyoajkwzmgecx0xo.png",
+        "alt": "Gallery photo 2"
+      },
+      {
+        "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777172899/hv0buzf3zhzrliychjqp.png",
+        "alt": "Gallery photo 3"
+      }
+    ]
   },
   "inventory": {
     "yachts": [
