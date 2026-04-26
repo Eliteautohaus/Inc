@@ -220,12 +220,22 @@
       },
       {
         "id": "new-1777223095135",
+        "name": "2008 Carver 38 Super Sport",
+        "price": "$299,995 CAD",
+        "status": "available",
+        "description": "2008 Carver 38 Super Sport. With its sleek lines, spacious layout, and impressive performance, this vessel is sure to satisfy the most discerning boating enthusiasts. Twin 8.1 Volvo Penta Hours: 415 This Carver 38 Super Sport is a true gem, meticulously maintained and boasting an impeccable condition that is sure to impress. With only 415 hours on its twin 8.1 Volvo Penta engines, this boat offers not only reliability but also incredible power and performance on the water. Step aboard, and you'll be greeted by a spacious and well-appointed cockpit, perfect for entertaining guests or simply enjoying a peaceful day out on the water. The stylish helm station is equipped with state-of-the-art navigation and control systems, ensuring smooth sailing and easy maneuverability. Inside the cabin, you'll find a tastefully designed and meticulously crafted living space. The salon features plush seating, a dinette, and ample storage throughout. The galley is fully equipped with modern appliances, allowing you to prepare gourmet meals while enjoying the comfort of home. Accommodations are no issue on this Carver 38 Super Sport. The master stateroom offers a luxurious queen-size bed, ample storage space, and an en-suite head with a separate shower stall. The guest stateroom is equally impressive, providing comfortable sleeping arrangements for your family or friends. Additional features of this exceptional vessel include: Air conditioning and heating for year-round comfort Generator for extended stays on the water Spacious flybridge with seating and a wet bar Swim platform with ladder for easy water access Full electronics package, including GPS, radar, and VHF radio Premium sound system for entertainment on board From its timeless design to its exceptional performance, this 2008 Carver 38 Super Sport is truly a remarkable vessel. Whether you're planning weekend getaways, fishing expeditions, or cruising adventures, this boat will exceed your expectations at every turn. Don't miss your chance to own this outstanding Carver 38 Super Sport.",
+        "images": [
+          "https://res.cloudinary.com/dvnleduvx/image/upload/v1777223173/mmbmtwdkz0gsslrqhivb.png"
+        ]
+      },
+      {
+        "id": "new-1777223177848",
         "name": "New Vessel",
         "price": "",
         "status": "available",
         "description": "",
         "images": [
-          "https://res.cloudinary.com/dvnleduvx/image/upload/v1777223173/mmbmtwdkz0gsslrqhivb.png"
+          "https://res.cloudinary.com/dvnleduvx/image/upload/v1777223325/y6wry24rpklncxfizyvl.png"
         ]
       }
     ]
