@@ -61,12 +61,7 @@
       "buttonText": "Sell Your Car",
       "buttonUrl": "sell.html"
     },
-    "gallery": [
-      {
-        "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777175018/jwwhb9n21nbsi6c1n6sn.png",
-        "alt": "Gallery photo 1"
-      }
-    ]
+    "gallery": []
   },
   "inventory": {
     "yachts": [
