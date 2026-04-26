@@ -177,6 +177,16 @@
         "images": [
           "https://img1.wsimg.com/isteam/ip/ba3d6c5d-a47c-49ab-a0d7-7df02e0711ea/DJI_0101.JPG"
         ]
+      },
+      {
+        "id": "new-1777222645229",
+        "name": "New Vessel",
+        "price": "",
+        "status": "available",
+        "description": "",
+        "images": [
+          "https://res.cloudinary.com/dvnleduvx/image/upload/v1777222732/awlyki86rjc7bfyxqlar.png"
+        ]
       }
     ]
   },
