@@ -17,5 +17,10 @@
         "alt": "Gallery 3"
       }
     ]
+  },
+  "pages": {
+    "yachtsales": {
+      "heroImage": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777172059/k6mcgfio3on9ebwgjhzt.png"
+    }
   }
 }
