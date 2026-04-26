@@ -6,15 +6,15 @@
     "gallery": [
       {
         "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777172010/gtnjvcgrfjfoqkwndnck.png",
-        "alt": "Gallery photo 1"
+        "alt": "Gallery 1"
       },
       {
         "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777172011/qetk1wq1knlbhzaftk4z.png",
-        "alt": "Gallery photo 2"
+        "alt": "Gallery 2"
       },
       {
         "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777172012/rnubjimafygv7gnklrom.png",
-        "alt": "Gallery photo 3"
+        "alt": "Gallery 3"
       }
     ]
   }
