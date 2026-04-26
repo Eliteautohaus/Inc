@@ -63,12 +63,8 @@
     },
     "gallery": [
       {
-        "image": "images/gallery2.jpg",
-        "alt": "Gallery photo 1"
-      },
-      {
         "image": "images/gallery3.jpg",
-        "alt": "Gallery photo 2"
+        "alt": "Gallery photo 1"
       }
     ]
   },
