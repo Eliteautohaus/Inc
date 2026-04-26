@@ -300,12 +300,22 @@
       },
       {
         "id": "new-1777223705167",
+        "name": "2005 Chris Craft 25 Corsair",
+        "price": "$59,995 CAD",
+        "status": "sold",
+        "description": "MSRP of over $250,000 - This beatiful Chris Craft Corsair features a 6.2L Mercury Engine - Captains Choice through Hull Exhaust and more. Sold with Trailer",
+        "images": [
+          "https://res.cloudinary.com/dvnleduvx/image/upload/v1777223748/jdakbdka6xcy1fymtw2l.png"
+        ]
+      },
+      {
+        "id": "new-1777223751944",
         "name": "New Vessel",
         "price": "",
         "status": "available",
         "description": "",
         "images": [
-          "https://res.cloudinary.com/dvnleduvx/image/upload/v1777223748/jdakbdka6xcy1fymtw2l.png"
+          "https://res.cloudinary.com/dvnleduvx/image/upload/v1777223788/s3ya4osp6r3uycz1tqll.png"
         ]
       }
     ]
