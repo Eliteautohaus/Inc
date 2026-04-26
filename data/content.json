@@ -226,6 +226,10 @@
       "heroImage": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777173906/verifiovxipeeg0euafy.png"
     },
     "boatbids": {
+      "heading": "www.Boat-Bids.com",
+      "body": "Check out Boat Bids for an innovative platform providing consumers an online auction marketplace to buy and sell new or used boats.\n\nAuctions launch every day and run for 7 days. Find incredible deals or list your vessel to thousands of motivated buyers.",
+      "buttonText": "Learn More About Boat Bids",
+      "buttonUrl": "http://www.boat-bids.com",
       "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777173919/f7swm377envtor7wf08p.png"
     }
   }
