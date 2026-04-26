@@ -114,17 +114,23 @@
       </div>
 
       <!-- RIGHT: logo / image box -->
-      <div id="bb-logo-box" style="background:var(--dark2);border:1px solid var(--dark3);overflow:hidden;">
-        <!-- If image uploaded: shows as cover image. Otherwise shows text logo -->
-        <div id="bb-img-wrap" class="img-cover-wrap ratio-4-3" style="display:none;">
-          <img id="bb-img" src="" alt="Boat Bids" />
+      <div id="bb-logo-box" style="background:var(--dark2);border:1px solid var(--dark3);overflow:hidden;min-height:200px;display:flex;align-items:center;justify-content:center;">
+
+        <!-- Photo (shown when uploaded) -->
+        <div id="bb-img-wrap" style="display:none;width:100%;">
+          <div class="img-cover-wrap ratio-4-3">
+            <img id="bb-img" src="" alt="Boat Bids" />
+          </div>
         </div>
-        <div id="bb-text-logo" style="padding:clamp(1.5rem,4vw,3rem);text-align:center;">
+
+        <!-- Text logo (shown when no photo) -->
+        <div id="bb-text-logo" style="padding:clamp(1.5rem,4vw,3rem);text-align:center;width:100%;">
           <div style="font-size:3rem;margin-bottom:1rem;">⚓</div>
           <div style="font-family:'Rajdhani',sans-serif;font-size:1.8rem;font-weight:700;letter-spacing:0.1em;color:var(--white);">BOAT-BIDS</div>
           <div style="font-family:'Rajdhani',sans-serif;font-size:0.75rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-top:0.3rem;">.COM</div>
           <p style="color:var(--muted);font-size:0.8rem;margin-top:1rem;line-height:1.6;">Online auction marketplace<br/>for new &amp; used boats</p>
         </div>
+
       </div>
 
     </div>
@@ -173,14 +179,22 @@
     if (bb.buttonText) document.getElementById('bb-btn').textContent = bb.buttonText;
     if (bb.buttonUrl)  document.getElementById('bb-link').href = bb.buttonUrl;
 
-    // Boat Bids image — show cover wrap, hide text logo
-    if (bb.image) {
+    // Boat Bids image — show image wrap, hide text logo
+    if (bb.image && bb.image.length > 10) {
       const imgWrap = document.getElementById('bb-img-wrap');
-      const img = document.getElementById('bb-img');
-      const txt = document.getElementById('bb-text-logo');
-      if (img) img.src = bb.image;
-      if (imgWrap) imgWrap.style.display = '';
-      if (txt) txt.style.display = 'none';
+      const img     = document.getElementById('bb-img');
+      const txt     = document.getElementById('bb-text-logo');
+      // Show wrap FIRST so it has dimensions, then set src
+      if (imgWrap) imgWrap.style.display = 'block';
+      if (txt)     txt.style.display     = 'none';
+      if (img) {
+        img.src = bb.image;
+        img.onerror = function() {
+          // If image fails to load, show text logo instead
+          if (imgWrap) imgWrap.style.display = 'none';
+          if (txt)     txt.style.display     = '';
+        };
+      }
     }
 
   } catch(e) {}

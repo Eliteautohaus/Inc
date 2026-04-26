@@ -56,7 +56,7 @@ img { display: block; max-width: 100%; }
   --muted:      #888888;
   --light:      #bbbbbb;
   --white:      #ffffff;
-  --nav-h:      80px;
+  --nav-h:      104px;
 }
 
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
@@ -75,12 +75,12 @@ header {
   justify-content: space-between; padding: 0 1.5rem;
 }
 .logo-wrap { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
-.logo-wrap img { height: 64px; width: auto; display: block; }
+.logo-wrap img { height: 83px; width: auto; display: block; }
 
 nav { display: flex; align-items: center; }
 nav a {
   color: var(--light); text-decoration: none;
-  font-family: 'Rajdhani', sans-serif; font-size: 0.75rem;
+  font-family: 'Rajdhani', sans-serif; font-size: 0.82rem;
   font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
   padding: 0 0.6rem; height: var(--nav-h); display: flex; align-items: center;
   border-bottom: 2px solid transparent; white-space: nowrap;
@@ -136,7 +136,7 @@ nav a:hover, nav a.active { color: var(--white); border-bottom-color: var(--whit
 }
 .hero-full .img-cover-wrap img { opacity: 0.55; }
 /* Hide image if src empty */
-.hero-full .img-cover-wrap img[src=""] { display: none !important; }
+.hero-full .img-cover-wrap img[src=""] { display: none; }
 /* The text overlay */
 .hero-full-overlay {
   position: absolute; inset: 0; z-index: 2;
@@ -239,8 +239,6 @@ h3.sub-title { font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; font-weig
 }
 /* Real image sits on top of fallback */
 .img-cover-wrap img { z-index: 1; }
-/* Hide image if src empty — fallback shows through */
-.img-cover-wrap img[src=""] { display: none !important; }
 .svc-info { padding: 1.4rem 1.2rem; text-align: center; }
 .svc-info h3 { font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--white); margin-bottom: 0.6rem; }
 .svc-info p { color: var(--muted); font-size: 0.84rem; line-height: 1.65; }
@@ -259,7 +257,7 @@ footer a:hover { color: var(--white); }
 /* ══ RESPONSIVE ════════════════════════ */
 @media (max-width: 900px) {
   nav { display: none; } .hamburger { display: flex; }
-  .logo-wrap img { height: 54px; } :root { --nav-h: 70px; }
+  .logo-wrap img { height: 54px; } :root { --nav-h: 78px; }
   .grid-2 { grid-template-columns: 1fr; }
   .grid-3 { grid-template-columns: 1fr 1fr; }
   .inventory-grid { grid-template-columns: 1fr 1fr; }

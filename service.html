@@ -194,22 +194,26 @@
     const marine = svc.marine || [];
 
     function st(id, val) { const e = document.getElementById(id); if (e && val) e.textContent = val; }
-    function setImg(imgId, wrapId, src) {
+    function setImg(imgId, src) {
       if (!src) return;
       const img = document.getElementById(imgId);
-      if (img) { img.src = src; }
+      if (!img) return;
+      img.src = src;
+      // When photo loads, hide the emoji fallback behind it
+      img.onload = function() { this.style.display = 'block'; };
+      img.onerror = function() { this.src = ''; };
     }
 
     if (svc.autoHeading) st('auto-heading', svc.autoHeading);
     if (svc.marineHeading) st('marine-heading', svc.marineHeading);
 
-    if (auto[0]) { st('auto1-name', auto[0].name); st('auto1-desc', auto[0].desc); setImg('auto1-img', 'auto1-wrap', auto[0].image); }
-    if (auto[1]) { st('auto2-name', auto[1].name); st('auto2-desc', auto[1].desc); setImg('auto2-img', 'auto2-wrap', auto[1].image); }
-    if (auto[2]) { st('auto3-name', auto[2].name); st('auto3-desc', auto[2].desc); setImg('auto3-img', 'auto3-wrap', auto[2].image); }
+    if (auto[0]) { st('auto1-name', auto[0].name); st('auto1-desc', auto[0].desc); setImg('auto1-img', auto[0].image); }
+    if (auto[1]) { st('auto2-name', auto[1].name); st('auto2-desc', auto[1].desc); setImg('auto2-img', auto[1].image); }
+    if (auto[2]) { st('auto3-name', auto[2].name); st('auto3-desc', auto[2].desc); setImg('auto3-img', auto[2].image); }
 
-    if (marine[0]) { st('mar1-name', marine[0].name); st('mar1-desc', marine[0].desc); setImg('mar1-img', 'mar1-wrap', marine[0].image); }
-    if (marine[1]) { st('mar2-name', marine[1].name); st('mar2-desc', marine[1].desc); setImg('mar2-img', 'mar2-wrap', marine[1].image); }
-    if (marine[2]) { st('mar3-name', marine[2].name); st('mar3-desc', marine[2].desc); setImg('mar3-img', 'mar3-wrap', marine[2].image); }
+    if (marine[0]) { st('mar1-name', marine[0].name); st('mar1-desc', marine[0].desc); setImg('mar1-img', marine[0].image); }
+    if (marine[1]) { st('mar2-name', marine[1].name); st('mar2-desc', marine[1].desc); setImg('mar2-img', marine[1].image); }
+    if (marine[2]) { st('mar3-name', marine[2].name); st('mar3-desc', marine[2].desc); setImg('mar3-img', marine[2].image); }
 
     const fid = (d.site || {}).formspree || '';
     const form = document.getElementById('svc-form');

@@ -9,37 +9,22 @@
 <body>
 
 <header>
-  <a href="index.html" class="logo-wrap">
-    <img src="images/logo.png" alt="Elite Autohaus" />
-  </a>
+  <a href="index.html" class="logo-wrap"><img src="images/logo.png" alt="Elite Autohaus" /></a>
   <nav>
-    <a href="index.html">Home</a>
-    <a href="yacht-sales.html">Yacht Sales</a>
-    <a href="yacht-inventory.html">Yacht Inventory</a>
-    <a href="sell.html">Sell</a>
-    <a href="personal-shopper.html">Personal Shopper</a>
-    <a href="service.html">Service</a>
-    <a href="financing.html">Financing</a>
-    <a href="contact-us.html">Contact Us</a>
+    <a href="index.html">Home</a><a href="yacht-sales.html">Yacht Sales</a><a href="yacht-inventory.html">Yacht Inventory</a>
+    <a href="sell.html">Sell</a><a href="personal-shopper.html">Personal Shopper</a>
+    <a href="service.html">Service</a><a href="financing.html">Financing</a><a href="contact-us.html">Contact Us</a>
   </nav>
-  <button class="hamburger" id="hamburger" aria-label="Open menu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
 </header>
-<div class="mobile-nav" id="mobile-nav" onclick="if(event.target.tagName==='A'){document.getElementById('mobile-nav').classList.remove('open')}">
-  <a href="index.html">Home</a>
-  <a href="yacht-sales.html">Yacht Sales</a>
-  <a href="yacht-inventory.html">Yacht Inventory</a>
-  <a href="sell.html">Sell</a>
-  <a href="personal-shopper.html">Personal Shopper</a>
-  <a href="service.html">Service</a>
-  <a href="financing.html">Financing</a>
-  <a href="contact-us.html">Contact Us</a>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="index.html">Home</a><a href="yacht-sales.html">Yacht Sales</a><a href="yacht-inventory.html">Yacht Inventory</a>
+  <a href="sell.html">Sell</a><a href="personal-shopper.html">Personal Shopper</a>
+  <a href="service.html">Service</a><a href="financing.html">Financing</a><a href="contact-us.html">Contact Us</a>
 </div>
 
-<!-- PAGE HERO -->
 <div class="page-hero">
-  <h1>Sell Your <span>Car</span></h1>
+  <h1 id="sell-page-title">Sell Your Car</h1>
   <div class="red-bar"></div>
 </div>
 
@@ -48,8 +33,8 @@
   <div class="wrapper">
     <div class="section-label">Why Choose Us</div>
     <div class="red-divider"></div>
-    <h2 class="section-title">Why Sell to Elite Autohaus</h2>
-    <div class="body-text">
+    <h2 class="section-title" id="sell-why-heading">Why Sell to Elite Autohaus</h2>
+    <div class="body-text" id="sell-why-body">
       <p>It's no secret that dealers won't pay you a proper value for your trade-in vehicle when you are buying another car from them. However, most people will decide to try and sell it themselves on Kijiji or Autotrader with no success and eventually just take the dealer's offer anyway.</p>
       <p>Elite Autohaus will give you an unbiased quote on your car, which is likely to be <strong>hundreds or thousands more</strong> than the dealer is giving you. If you are buying a new car from another dealership, we will complete a "convenience deal" so that you retain your tax savings towards your new car!</p>
       <p><strong>SELLING WITHOUT A TRADE?</strong><br />If you are not buying another car, Elite Autohaus will still happily purchase your car for a fair value. Simply book a vehicle inspection and we will give you a bank draft the same day.</p>
@@ -62,34 +47,28 @@
   <div class="wrapper">
     <div class="section-label">Our Promise</div>
     <div class="red-divider"></div>
-    <h2 class="section-title">Reasons to Sell to Elite Autohaus</h2>
-    <div class="grid-2" style="gap:1.5rem;margin-top:0;">
-
+    <h2 class="section-title" id="sell-reasons-heading">Reasons to Sell to Elite Autohaus</h2>
+    <div class="grid-2" style="gap:1.2rem;">
       <div class="card">
-        <h3>We Pay More</h3>
-        <p>Elite Autohaus will pay more for your vehicle than most dealerships. We don't rely on Canadian Black Book — we look at true market values and take every option, colour popularity, marketplace availability and vehicle history into consideration.</p>
+        <h3 id="sell-r1-title">We Pay More</h3>
+        <p id="sell-r1-body">Elite Autohaus will pay more for your vehicle than most dealerships. We don't rely on Canadian Black Book — we look at true market values and take every option, colour popularity, marketplace availability and vehicle history into consideration.</p>
       </div>
-
       <div class="card">
-        <h3>Save the Tax</h3>
-        <p>Elite Autohaus will arrange a "convenience deal" with your dealership, allowing you to benefit from our higher offer while also keeping the tax benefits of a trade-in.</p>
+        <h3 id="sell-r2-title">Save the Tax</h3>
+        <p id="sell-r2-body">Elite Autohaus will arrange a "convenience deal" with your dealership, allowing you to benefit from our higher offer while also keeping the tax benefits of a trade-in.</p>
       </div>
-
       <div class="card">
-        <h3>We Pay Cash</h3>
-        <p>Elite Autohaus will pay you up to <strong>$200,000 cash today</strong> for your car. After a physical inspection we will negotiate a fair price and pay you by bank draft on the spot.</p>
+        <h3 id="sell-r3-title">We Pay Cash</h3>
+        <p id="sell-r3-body">Elite Autohaus will pay you up to <strong>$200,000 cash today</strong> for your car. After a physical inspection we will negotiate a fair price and pay you by bank draft on the spot.</p>
       </div>
-
       <div class="card">
-        <h3>Save Time & Money</h3>
-        <p>Elite Autohaus will complete their own physical inspection and pick up the car if needed. No hassle, no waiting, no wasting weekends on strangers from Kijiji.</p>
+        <h3 id="sell-r4-title">Save Time &amp; Money</h3>
+        <p id="sell-r4-body">Elite Autohaus will complete their own physical inspection and pick up the car if needed. No hassle, no waiting, no wasting weekends on strangers from Kijiji.</p>
       </div>
-
       <div class="card" style="grid-column:1/-1;">
-        <h3>We Stand By Our Offer</h3>
-        <p>When we give you an offer, it is a real offer. We will pay you that amount on the spot. We are not like 95% of the people who contact you online, make an offer and disappear. We have money, we know the market and we are serious buyers.</p>
+        <h3 id="sell-r5-title">We Stand By Our Offer</h3>
+        <p id="sell-r5-body">When we give you an offer, it is a real offer. We will pay you that amount on the spot. We are not like 95% of the people who contact you online, make an offer and disappear. We have money, we know the market and we are serious buyers.</p>
       </div>
-
     </div>
   </div>
 </section>
@@ -99,84 +78,72 @@
   <div class="wrapper">
     <div class="section-label">Get a Quote</div>
     <div class="red-divider"></div>
-    <h2 class="section-title">Send Us Your Vehicle Info</h2>
-    <p style="color:var(--muted);font-size:0.85rem;margin-bottom:2rem;">Fill in the details below and we will get back to you with an offer as soon as possible.</p>
-
+    <h2 class="section-title" id="sell-form-heading">Send Us Your Vehicle Info</h2>
+    <p style="color:var(--muted);font-size:0.85rem;margin-bottom:2rem;" id="sell-form-sub">Fill in the details below and we will get back to you with an offer as soon as possible.</p>
     <div class="form-wrap">
-      <form id="sell-form" method="POST"><input type="hidden" name="_subject" value="Sell My Vehicle — Elite Autohaus" />
+      <form id="sell-form" method="POST">
+        <input type="hidden" name="_subject" value="Sell My Vehicle — Elite Autohaus" />
         <div class="form-grid">
-          <div class="form-group">
-            <label>Name <span>*</span></label>
-            <input type="text" required placeholder="Your full name" />
-          </div>
-          <div class="form-group">
-            <label>Phone Number <span>*</span></label>
-            <input type="tel" required placeholder="(416) 555-0000" />
-          </div>
-          <div class="form-group">
-            <label>Email <span>*</span></label>
-            <input type="email" required placeholder="you@example.com" />
-          </div>
-          <div class="form-group">
-            <label>VIN Number <span>*</span></label>
-            <input type="text" required placeholder="17-character VIN" />
-          </div>
-          <div class="form-group">
-            <label>Year <span>*</span></label>
-            <input type="text" required placeholder="e.g. 2019" />
-          </div>
-          <div class="form-group">
-            <label>Make <span>*</span></label>
-            <input type="text" required placeholder="e.g. BMW" />
-          </div>
-          <div class="form-group">
-            <label>Model <span>*</span></label>
-            <input type="text" required placeholder="e.g. M3" />
-          </div>
-          <div class="form-group">
-            <label>Mileage <span>*</span></label>
-            <input type="text" required placeholder="e.g. 45,000 km" />
-          </div>
-          <div class="form-group full">
-            <label>Colour <span>*</span></label>
-            <input type="text" required placeholder="Exterior colour" />
-          </div>
-          <div class="form-group full">
-            <label>Additional Notes / Photos</label>
-            <textarea placeholder="Describe condition, options, any known issues, or paste image links..."></textarea>
-          </div>
+          <div class="form-group"><label>Name <span>*</span></label><input type="text" name="name" required placeholder="Your full name" autocomplete="name" /></div>
+          <div class="form-group"><label>Phone <span>*</span></label><input type="tel" name="phone" required placeholder="(416) 555-0000" autocomplete="tel" /></div>
+          <div class="form-group"><label>Email <span>*</span></label><input type="email" name="email" required placeholder="you@example.com" autocomplete="email" /></div>
+          <div class="form-group"><label>VIN Number <span>*</span></label><input type="text" name="vin" required placeholder="17-character VIN" /></div>
+          <div class="form-group"><label>Year <span>*</span></label><input type="text" name="year" required placeholder="e.g. 2019" /></div>
+          <div class="form-group"><label>Make <span>*</span></label><input type="text" name="make" required placeholder="e.g. BMW" /></div>
+          <div class="form-group"><label>Model <span>*</span></label><input type="text" name="model" required placeholder="e.g. M3" /></div>
+          <div class="form-group"><label>Mileage <span>*</span></label><input type="text" name="mileage" required placeholder="e.g. 45,000 km" /></div>
+          <div class="form-group full"><label>Colour <span>*</span></label><input type="text" name="colour" required placeholder="Exterior colour" /></div>
+          <div class="form-group full"><label>Additional Notes</label><textarea name="notes" placeholder="Condition, options, known issues, or paste image links..."></textarea></div>
         </div>
         <button type="submit" class="btn btn-red" id="sell-submit-btn" style="margin-top:0.5rem;">Send Vehicle Info</button>
       </form>
-      <div id="sell-form-error" style="display:none;background:rgba(200,0,0,0.08);border:1px solid rgba(255,100,100,0.2);padding:1rem 1.2rem;margin-top:1rem;color:#ff9999;font-size:0.85rem;line-height:1.6;"></div>
-      <div id="sell-form-success" style="display:none;background:var(--dark2);border:1px solid rgba(255,255,255,0.2);padding:1.5rem;margin-top:1.5rem;color:var(--white);font-size:0.9rem;">
+      <div id="sell-error" style="display:none;background:rgba(200,0,0,0.08);border:1px solid rgba(255,100,100,0.2);padding:1rem 1.2rem;margin-top:1rem;color:#ff9999;font-size:0.85rem;line-height:1.6;"></div>
+      <div id="sell-success" style="display:none;background:var(--dark2);border:1px solid rgba(255,255,255,0.2);padding:1.5rem;margin-top:1.5rem;text-align:center;color:var(--white);">
         ✅ &nbsp;Thank you! We've received your vehicle info and will be in touch shortly.
       </div>
     </div>
   </div>
 </section>
 
-<footer>
-  <p>Copyright &copy; 2026 Elite Autohaus Inc &ndash; All Rights Reserved.</p>
-  <a href="contact-us.html">Contact Us</a>
-</footer>
-<div class="cookie-bar" id="cookie-bar" style="display:none;">
-  <p>We use cookies to analyze website traffic and optimize your website experience.</p>
-  <button id="cookie-accept">Accept</button>
-</div>
+<footer><p>Copyright &copy; 2026 Elite Autohaus Inc &ndash; All Rights Reserved.</p><a href="contact-us.html">Contact Us</a></footer>
+<div class="cookie-bar" id="cookie-bar" style="display:none;"><p>We use cookies to analyze website traffic and optimize your website experience.</p><button id="cookie-accept">Accept</button></div>
 <a href="admin/index.html" class="admin-badge">&#9881;</a>
 <script src="shared.js"></script>
 <script>
+// Load editable content from content.json
+(async function() {
+  try {
+    const res = await fetch('data/content.json?_=' + Date.now());
+    const d = await res.json();
+    const s = (d.pages || {}).sell || {};
+    function st(id, val) { const e = document.getElementById(id); if (e && val) e.textContent = val; }
+    function sh(id, val) { const e = document.getElementById(id); if (e && val) e.innerHTML = val; }
+    st('sell-page-title',     s.pageTitle);
+    st('sell-why-heading',    s.whyHeading);
+    sh('sell-why-body',       s.whyBody);
+    st('sell-reasons-heading',s.reasonsHeading);
+    st('sell-r1-title',       s.r1title); st('sell-r1-body', s.r1body);
+    st('sell-r2-title',       s.r2title); st('sell-r2-body', s.r2body);
+    st('sell-r3-title',       s.r3title); st('sell-r3-body', s.r3body);
+    st('sell-r4-title',       s.r4title); st('sell-r4-body', s.r4body);
+    st('sell-r5-title',       s.r5title); st('sell-r5-body', s.r5body);
+    st('sell-form-heading',   s.formHeading);
+    st('sell-form-sub',       s.formSub);
+    const fid = (d.site || {}).formspree || '';
+    if (fid && fid !== 'YOUR_FORMSPREE_ID') document.getElementById('sell-form').action = 'https://formspree.io/f/' + fid;
+  } catch(e) {}
+})();
+
 (function() {
   var form = document.getElementById('sell-form');
   if (!form) return;
   form.addEventListener('submit', async function(e) {
     e.preventDefault();
     var btn = document.getElementById('sell-submit-btn');
-    var origText = btn ? btn.textContent : '';
-    if (btn) { btn.textContent = 'Sending...'; btn.disabled = true; }
-    var ok = await submitToFormspree(form, 'sell-form-success', 'sell-form-error');
-    if (!ok && btn) { btn.textContent = origText; btn.disabled = false; }
+    var orig = btn.textContent;
+    btn.textContent = 'Sending...'; btn.disabled = true;
+    var ok = await submitToFormspree(form, 'sell-success', 'sell-error');
+    if (!ok) { btn.textContent = orig; btn.disabled = false; }
   });
 })();
 </script>

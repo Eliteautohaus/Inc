@@ -296,26 +296,98 @@
 
   <!-- SELL -->
   <div class="panel" id="panel-sell">
+
     <div class="card">
-      <div class="ctitle">✏️ Sell Page</div>
-      <div class="field"><label>Page Title</label><input type="text" id="sell-title" value="Sell Your Car" oninput="markDirty()" /></div>
-      <div class="field"><label>Intro Paragraph</label><textarea id="sell-intro" rows="5" oninput="markDirty()">Elite Autohaus will give you an unbiased quote — likely hundreds or thousands more than any dealer.</textarea></div>
-      <button class="sbtn" id="btn-sell" onclick="saveSection('sell',this)">💾 Save</button>
+      <div class="ctitle">🏷️ Page Title & Intro</div>
+      <div class="field"><label>Page Title</label><input type="text" id="sell-page-title" oninput="markDirty()" /></div>
+      <div class="field"><label>Section Heading</label><input type="text" id="sell-why-heading" oninput="markDirty()" /></div>
+      <div class="field">
+        <label>Intro Paragraphs</label>
+        <textarea id="sell-why-body" rows="6" oninput="markDirty()"></textarea>
+        <div class="hint">Use &lt;p&gt; tags to separate paragraphs, or just press Enter twice.</div>
+      </div>
+      <button class="sbtn" id="btn-sell-intro" onclick="saveSection('sell',this)">💾 Save</button>
     </div>
+
+    <div class="card">
+      <div class="ctitle">📋 Reasons Section</div>
+      <div class="field"><label>Section Heading</label><input type="text" id="sell-reasons-heading" oninput="markDirty()" /></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div>
+          <div class="field"><label>Box 1 Title</label><input type="text" id="sell-r1-title" oninput="markDirty()" /></div>
+          <div class="field"><label>Box 1 Text</label><textarea id="sell-r1-body" rows="3" oninput="markDirty()"></textarea></div>
+        </div>
+        <div>
+          <div class="field"><label>Box 2 Title</label><input type="text" id="sell-r2-title" oninput="markDirty()" /></div>
+          <div class="field"><label>Box 2 Text</label><textarea id="sell-r2-body" rows="3" oninput="markDirty()"></textarea></div>
+        </div>
+        <div>
+          <div class="field"><label>Box 3 Title</label><input type="text" id="sell-r3-title" oninput="markDirty()" /></div>
+          <div class="field"><label>Box 3 Text</label><textarea id="sell-r3-body" rows="3" oninput="markDirty()"></textarea></div>
+        </div>
+        <div>
+          <div class="field"><label>Box 4 Title</label><input type="text" id="sell-r4-title" oninput="markDirty()" /></div>
+          <div class="field"><label>Box 4 Text</label><textarea id="sell-r4-body" rows="3" oninput="markDirty()"></textarea></div>
+        </div>
+      </div>
+      <div class="field" style="margin-top:0.5rem;"><label>Box 5 Title (full width)</label><input type="text" id="sell-r5-title" oninput="markDirty()" /></div>
+      <div class="field"><label>Box 5 Text</label><textarea id="sell-r5-body" rows="3" oninput="markDirty()"></textarea></div>
+      <button class="sbtn" id="btn-sell-reasons" onclick="saveSection('sell',this)">💾 Save</button>
+    </div>
+
+    <div class="card">
+      <div class="ctitle">📝 Form Section</div>
+      <div class="field"><label>Form Heading</label><input type="text" id="sell-form-heading" oninput="markDirty()" /></div>
+      <div class="field"><label>Form Subtext</label><input type="text" id="sell-form-sub" oninput="markDirty()" /></div>
+      <button class="sbtn" id="btn-sell-form" onclick="saveSection('sell',this)">💾 Save</button>
+    </div>
+
   </div>
 
-  <!-- PERSONAL SHOPPER -->
   <div class="panel" id="panel-shopper">
+
     <div class="card">
-      <div class="ctitle">✏️ Personal Shopper Steps</div>
-      <div class="field"><label>Step 1 Heading</label><input type="text" id="step1h" value="Tell Us What You Want" oninput="markDirty()" /></div>
-      <div class="field"><label>Step 1 Text</label><textarea id="step1t" rows="3" oninput="markDirty()">Tell us the make, model, colour and budget. We'll handle the rest.</textarea></div>
-      <div class="field"><label>Step 2 Heading</label><input type="text" id="step2h" value="We Search & Inspect" oninput="markDirty()" /></div>
-      <div class="field"><label>Step 2 Text</label><textarea id="step2t" rows="3" oninput="markDirty()">We find the best matches and personally inspect each one.</textarea></div>
-      <div class="field"><label>Step 3 Heading</label><input type="text" id="step3h" value="Drive It Home" oninput="markDirty()" /></div>
-      <div class="field"><label>Step 3 Text</label><textarea id="step3t" rows="3" oninput="markDirty()">We purchase on your behalf. Not as described? Full deposit refund.</textarea></div>
-      <button class="sbtn" id="btn-shopper" onclick="saveSection('shopper',this)">💾 Save</button>
+      <div class="ctitle">🏷️ Page Title & Steps</div>
+      <div class="field"><label>Page Title</label><input type="text" id="ps-page-title" oninput="markDirty()" /></div>
+      <div class="field"><label>Steps Section Heading</label><input type="text" id="ps-steps-heading" oninput="markDirty()" /></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-top:0.5rem;">
+        <div>
+          <div class="field"><label>Step 1 Title</label><input type="text" id="ps-step1-title" oninput="markDirty()" /></div>
+          <div class="field"><label>Step 1 Text</label><textarea id="ps-step1-body" rows="4" oninput="markDirty()"></textarea></div>
+        </div>
+        <div>
+          <div class="field"><label>Step 2 Title</label><input type="text" id="ps-step2-title" oninput="markDirty()" /></div>
+          <div class="field"><label>Step 2 Text</label><textarea id="ps-step2-body" rows="4" oninput="markDirty()"></textarea></div>
+        </div>
+        <div>
+          <div class="field"><label>Step 3 Title</label><input type="text" id="ps-step3-title" oninput="markDirty()" /></div>
+          <div class="field"><label>Step 3 Text</label><textarea id="ps-step3-body" rows="4" oninput="markDirty()"></textarea></div>
+        </div>
+      </div>
+      <button class="sbtn" id="btn-ps-steps" onclick="saveSection('shopper',this)">💾 Save</button>
     </div>
+
+    <div class="card">
+      <div class="ctitle">✅ What We Offer</div>
+      <div class="field"><label>Section Heading</label><input type="text" id="ps-offer-heading" oninput="markDirty()" /></div>
+      <div class="field"><label>Intro Text</label><textarea id="ps-offer-body" rows="3" oninput="markDirty()"></textarea></div>
+      <div class="field"><label>Feature List Item 1</label><input type="text" id="ps-feat1" oninput="markDirty()" /></div>
+      <div class="field"><label>Feature List Item 2</label><input type="text" id="ps-feat2" oninput="markDirty()" /></div>
+      <div class="field"><label>Feature List Item 3</label><input type="text" id="ps-feat3" oninput="markDirty()" /></div>
+      <div class="field"><label>Feature List Item 4</label><input type="text" id="ps-feat4" oninput="markDirty()" /></div>
+      <div class="field"><label>Feature List Item 5</label><input type="text" id="ps-feat5" oninput="markDirty()" /></div>
+      <div class="field"><label>Feature List Item 6</label><input type="text" id="ps-feat6" oninput="markDirty()" /></div>
+      <button class="sbtn" id="btn-ps-offer" onclick="saveSection('shopper',this)">💾 Save</button>
+    </div>
+
+    <div class="card">
+      <div class="ctitle">⭐ The Elite Advantage</div>
+      <div class="field"><label>Heading</label><input type="text" id="ps-advantage-heading" oninput="markDirty()" /></div>
+      <div class="field"><label>Text</label><textarea id="ps-advantage-body" rows="4" oninput="markDirty()"></textarea></div>
+      <div class="field"><label>Form Section Heading</label><input type="text" id="ps-form-heading" oninput="markDirty()" /></div>
+      <button class="sbtn" id="btn-ps-advantage" onclick="saveSection('shopper',this)">💾 Save</button>
+    </div>
+
   </div>
 
   <!-- SERVICE -->
@@ -962,6 +1034,39 @@ function populate() {
   if (smarine[1]) { sv('ms2n', smarine[1].name); sv('ms2d', smarine[1].desc); if (smarine[1].image) { slotImages['svc-mar2']=[smarine[1].image]; renderGrid('svc-mar2'); } }
   if (smarine[2]) { sv('ms3n', smarine[2].name); sv('ms3d', smarine[2].desc); if (smarine[2].image) { slotImages['svc-mar3']=[smarine[2].image]; renderGrid('svc-mar3'); } }
 
+  // Sell page fields
+  const sl = (siteData.pages||{}).sell || {};
+  sv('sell-page-title',      sl.pageTitle     || 'Sell Your Car');
+  sv('sell-why-heading',     sl.whyHeading    || 'Why Sell to Elite Autohaus');
+  sv('sell-why-body',        sl.whyBody       || '');
+  sv('sell-reasons-heading', sl.reasonsHeading|| 'Reasons to Sell to Elite Autohaus');
+  sv('sell-r1-title', sl.r1title || 'We Pay More');        sv('sell-r1-body', sl.r1body || '');
+  sv('sell-r2-title', sl.r2title || 'Save the Tax');       sv('sell-r2-body', sl.r2body || '');
+  sv('sell-r3-title', sl.r3title || 'We Pay Cash');        sv('sell-r3-body', sl.r3body || '');
+  sv('sell-r4-title', sl.r4title || 'Save Time & Money');  sv('sell-r4-body', sl.r4body || '');
+  sv('sell-r5-title', sl.r5title || 'We Stand By Our Offer'); sv('sell-r5-body', sl.r5body || '');
+  sv('sell-form-heading', sl.formHeading || 'Send Us Your Vehicle Info');
+  sv('sell-form-sub',     sl.formSub     || 'Fill in the details below and we will get back to you with an offer as soon as possible.');
+
+  // Personal Shopper fields
+  const ps = (siteData.pages||{}).shopper || {};
+  sv('ps-page-title',        ps.pageTitle       || 'Personal Shopper');
+  sv('ps-steps-heading',     ps.stepsHeading    || 'We Find Your Dream Car');
+  sv('ps-step1-title', ps.step1title || 'Tell Us What You Want'); sv('ps-step1-body', ps.step1body || '');
+  sv('ps-step2-title', ps.step2title || 'We Search & Inspect');   sv('ps-step2-body', ps.step2body || '');
+  sv('ps-step3-title', ps.step3title || 'Drive It Home');         sv('ps-step3-body', ps.step3body || '');
+  sv('ps-offer-heading',     ps.offerHeading    || 'What We Offer');
+  sv('ps-offer-body',        ps.offerBody       || '');
+  sv('ps-feat1', ps.feat1 || 'Finance or lease your vehicle with Elite Autohaus');
+  sv('ps-feat2', ps.feat2 || '100% quality guarantee');
+  sv('ps-feat3', ps.feat3 || "Better pricing — we'll negotiate!");
+  sv('ps-feat4', ps.feat4 || 'Access to more cars nationwide');
+  sv('ps-feat5', ps.feat5 || 'No liens — clean titles only');
+  sv('ps-feat6', ps.feat6 || '100% disclosure guarantee');
+  sv('ps-advantage-heading', ps.advantageHeading || 'The Elite Advantage');
+  sv('ps-advantage-body',    ps.advantageBody   || '');
+  sv('ps-form-heading',      ps.formHeading     || 'Tell Us Your Dream Car');
+
   renderInventory();
   renderUsers();
   updateGHInfo();
@@ -982,8 +1087,33 @@ function saveSection(section, btn) {
     siteData.site = { name:gv('site-name'), tagline:gv('site-tagline'), address:gv('site-address'), phone:gv('site-phone'), email:gv('site-email'), formspree:gv('site-formspree') };
     siteData.footer = { copyright: gv('footer-copyright') };
   }
-  if (section === 'sell')     { if (!siteData.pages) siteData.pages={}; siteData.pages.sell = { title:gv('sell-title'), intro:gv('sell-intro') }; }
-  if (section === 'shopper')  { if (!siteData.pages) siteData.pages={}; siteData.pages.shopper = { steps:[{heading:gv('step1h'),text:gv('step1t')},{heading:gv('step2h'),text:gv('step2t')},{heading:gv('step3h'),text:gv('step3t')}] }; }
+  if (section === 'sell') {
+    if (!siteData.pages) siteData.pages = {};
+    siteData.pages.sell = {
+      pageTitle: gv('sell-page-title'), whyHeading: gv('sell-why-heading'), whyBody: gv('sell-why-body'),
+      reasonsHeading: gv('sell-reasons-heading'),
+      r1title: gv('sell-r1-title'), r1body: gv('sell-r1-body'),
+      r2title: gv('sell-r2-title'), r2body: gv('sell-r2-body'),
+      r3title: gv('sell-r3-title'), r3body: gv('sell-r3-body'),
+      r4title: gv('sell-r4-title'), r4body: gv('sell-r4-body'),
+      r5title: gv('sell-r5-title'), r5body: gv('sell-r5-body'),
+      formHeading: gv('sell-form-heading'), formSub: gv('sell-form-sub')
+    };
+  }
+  if (section === 'shopper') {
+    if (!siteData.pages) siteData.pages = {};
+    siteData.pages.shopper = {
+      pageTitle: gv('ps-page-title'), stepsHeading: gv('ps-steps-heading'),
+      step1title: gv('ps-step1-title'), step1body: gv('ps-step1-body'),
+      step2title: gv('ps-step2-title'), step2body: gv('ps-step2-body'),
+      step3title: gv('ps-step3-title'), step3body: gv('ps-step3-body'),
+      offerHeading: gv('ps-offer-heading'), offerBody: gv('ps-offer-body'),
+      feat1: gv('ps-feat1'), feat2: gv('ps-feat2'), feat3: gv('ps-feat3'),
+      feat4: gv('ps-feat4'), feat5: gv('ps-feat5'), feat6: gv('ps-feat6'),
+      advantageHeading: gv('ps-advantage-heading'), advantageBody: gv('ps-advantage-body'),
+      formHeading: gv('ps-form-heading')
+    };
+  }
   if (section === 'service') {
     if (!siteData.pages) siteData.pages = {};
     const existing = siteData.pages.service || {};

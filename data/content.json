@@ -5,7 +5,7 @@
     "address": "GTA and Surrounding Area",
     "phone": "",
     "email": "sales.eliteautohaus@gmail.com",
-    "formspree": "mzdywgye"
+    "formspree": "YOUR_FORMSPREE_ID"
   },
   "nav": [
     {
@@ -43,10 +43,11 @@
   ],
   "home": {
     "hero": {
-      "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777174336/xpalq3xjtabord1iosxv.jpg"
+      "image": "images/hero.jpg",
+      "imageAlt": "Elite Autohaus"
     },
     "intro": {
-      "heading": "Elite Autohaus",
+      "heading": "About Elite Autohaus",
       "body": "Established in 2014, Elite Autohaus has been providing quality Pre-Owned Vehicles for over 12 years in GTA and surrounding area. We have helped thousands of customers buy, sell and trade their vehicles.\n\nElite Autohaus was built on a foundation of TRANSPARENCY and HONEST CAR SALES.\n\nOwners have over 35 years of combined experience in Pre-owned Luxury and Performance Vehicles.\n\nOur many years in business have helped us better understand the needs of our clients and provide them with a quality, luxury vehicle for a fraction of the new sticker price.\n\nWe personally hand select each vehicle requested by our clients to ensure that they meet our strict quality standards. We look forward to putting you in the driver's seat of your next dream car."
     },
     "cta1": {
@@ -63,16 +64,16 @@
     },
     "gallery": [
       {
-        "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777175262/hcxjaexxtpz3q3bzx7h6.png",
-        "alt": "Gallery 1"
+        "image": "images/gallery1.jpg",
+        "alt": "Luxury vehicle 1"
       },
       {
-        "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777175506/ss7xvmvrvoxoeenxcqjl.png",
-        "alt": "Gallery 2"
+        "image": "images/gallery2.jpg",
+        "alt": "Luxury vehicle 2"
       },
       {
-        "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777175513/fap8u1o6mig0abp0xm4y.png",
-        "alt": "Gallery 3"
+        "image": "images/gallery3.jpg",
+        "alt": "Luxury vehicle 3"
       }
     ]
   },
@@ -172,7 +173,7 @@
         "id": "1989-carver-3806",
         "name": "1989 Carver 3806",
         "price": "Price TBD",
-        "status": "available",
+        "status": "coming-soon",
         "description": "Details coming soon. Contact us to be the first to know when this vessel is listed.",
         "images": [
           "https://img1.wsimg.com/isteam/ip/ba3d6c5d-a47c-49ab-a0d7-7df02e0711ea/DJI_0101.JPG"
@@ -181,7 +182,7 @@
     ]
   },
   "footer": {
-    "copyright": "Copyright © 2026 Elite Autohaus Inc – All Rights Reserved."
+    "copyright": "Copyright \u00a9 2026 Elite Autohaus Inc \u2013 All Rights Reserved."
   },
   "pages": {
     "service": {
@@ -190,51 +191,37 @@
       "auto": [
         {
           "name": "Maintenance",
-          "desc": "Full Dealer Scheduled Maintenance — oil changes, filters, fluid services and more, performed to manufacturer specifications.",
-          "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777173939/zy9bf5lb59zfasxjdtag.png"
+          "desc": "Full Dealer Scheduled Maintenance \u2014 oil changes, filters, fluid services and more, performed to manufacturer specifications.",
+          "image": ""
         },
         {
           "name": "Tires & Wheel Alignment",
           "desc": "Tire sales, mounting & balancing. Laser Guided Wheel Alignments to keep you driving straight and safe.",
-          "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777173955/rofn92ztguuk40ayiqyo.png"
+          "image": ""
         },
         {
           "name": "Brakes & Suspension",
-          "desc": "Full brake & suspension service — pads, rotors, calipers, shocks, struts, control arms and more.",
-          "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777173958/nhw7lhbmgxrqxsgkkw4q.png"
+          "desc": "Full brake & suspension service \u2014 pads, rotors, calipers, shocks, struts, control arms and more.",
+          "image": ""
         }
       ],
       "marine": [
         {
           "name": "Maintenance",
           "desc": "Full engine and drive maintenance. Keep your vessel running at peak performance all season long.",
-          "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777173978/nxjaz3it5eywpxnuohzz.png"
+          "image": ""
         },
         {
           "name": "Detailing & Bottom Paint",
-          "desc": "Hull detailing, polish, and antifouling bottom paint — protect your investment and keep it looking showroom-fresh.",
-          "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777173986/eroj3yswticqfxocttbe.png"
+          "desc": "Hull detailing, polish, and antifouling bottom paint \u2014 protect your investment and keep it looking showroom-fresh.",
+          "image": ""
         },
         {
           "name": "Winterization & Shrink Wrap",
           "desc": "Engine and water system winterization plus professional shrink wrapping to protect your boat through the off-season.",
-          "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777173990/a6gcrwoxu0fdrfg7yaqh.png"
+          "image": ""
         }
       ]
-    },
-    "yachtsales": {
-      "heroImage": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777176972/axynhdh3kfyh4pff5enn.jpg"
-    },
-    "boatbids": {
-      "heading": "www.Boat-Bids.com",
-      "body": "Check out Boat Bids for an innovative platform providing consumers an online auction marketplace to buy and sell new or used boats.\n\nAuctions launch every day and run for 7 days. Find incredible deals or list your vessel to thousands of motivated buyers.",
-      "buttonText": "Learn More About Boat Bids",
-      "buttonUrl": "http://www.boat-bids.com",
-      "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777174394/us2lwqjb1qlp2rmh8zdr.png"
-    },
-    "sell": {
-      "title": "Sell Your Car",
-      "intro": "REASONS TO SELL TO ELITE AUTOHAUS"
     }
   }
 }
