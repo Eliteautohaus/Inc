@@ -8,27 +8,72 @@
     "formspree": "YOUR_FORMSPREE_ID"
   },
   "nav": [
-    { "label": "Home", "url": "index.html" },
-    { "label": "Yacht Sales", "url": "yacht-sales.html" },
-    { "label": "Yacht Inventory", "url": "yacht-inventory.html" },
-    { "label": "Sell", "url": "sell.html" },
-    { "label": "Personal Shopper", "url": "personal-shopper.html" },
-    { "label": "Service", "url": "service.html" },
-    { "label": "Financing", "url": "financing.html" },
-    { "label": "Contact Us", "url": "contact-us.html" }
+    {
+      "label": "Home",
+      "url": "index.html"
+    },
+    {
+      "label": "Yacht Sales",
+      "url": "yacht-sales.html"
+    },
+    {
+      "label": "Yacht Inventory",
+      "url": "yacht-inventory.html"
+    },
+    {
+      "label": "Sell",
+      "url": "sell.html"
+    },
+    {
+      "label": "Personal Shopper",
+      "url": "personal-shopper.html"
+    },
+    {
+      "label": "Service",
+      "url": "service.html"
+    },
+    {
+      "label": "Financing",
+      "url": "financing.html"
+    },
+    {
+      "label": "Contact Us",
+      "url": "contact-us.html"
+    }
   ],
   "home": {
-    "hero": { "image": "images/hero.jpg", "imageAlt": "Elite Autohaus" },
+    "hero": {
+      "image": ""
+    },
     "intro": {
       "heading": "About Elite Autohaus",
       "body": "Established in 2014, Elite Autohaus has been providing quality Pre-Owned Vehicles for over 12 years in GTA and surrounding area. We have helped thousands of customers buy, sell and trade their vehicles.\n\nElite Autohaus was built on a foundation of TRANSPARENCY and HONEST CAR SALES.\n\nOwners have over 35 years of combined experience in Pre-owned Luxury and Performance Vehicles.\n\nOur many years in business have helped us better understand the needs of our clients and provide them with a quality, luxury vehicle for a fraction of the new sticker price.\n\nWe personally hand select each vehicle requested by our clients to ensure that they meet our strict quality standards. We look forward to putting you in the driver's seat of your next dream car."
     },
-    "cta1": { "heading": "Looking to Buy a Car?", "body": "Let us know what you are looking for and we will search nationwide through our established network of dealer and auction partners.\n\nWe handle all the details, negotiate the price on your behalf and deliver the vehicle to your door!", "buttonText": "Personal Shopper", "buttonUrl": "personal-shopper.html" },
-    "cta2": { "heading": "Looking to Sell Your Car?", "body": "We make selling your car a quick and hassle free experience!\n\nWe will take care of all the paperwork and cut you a cheque the moment you drop off your car!", "buttonText": "Sell Your Car", "buttonUrl": "sell.html" },
+    "cta1": {
+      "heading": "Looking to Buy a Car?",
+      "body": "Let us know what you are looking for and we will search nationwide through our established network of dealer and auction partners.\n\nWe handle all the details, negotiate the price on your behalf and deliver the vehicle to your door!",
+      "buttonText": "Personal Shopper",
+      "buttonUrl": "personal-shopper.html"
+    },
+    "cta2": {
+      "heading": "Looking to Sell Your Car?",
+      "body": "We make selling your car a quick and hassle free experience!\n\nWe will take care of all the paperwork and cut you a cheque the moment you drop off your car!",
+      "buttonText": "Sell Your Car",
+      "buttonUrl": "sell.html"
+    },
     "gallery": [
-      { "image": "images/gallery1.jpg", "alt": "Luxury vehicle 1" },
-      { "image": "images/gallery2.jpg", "alt": "Luxury vehicle 2" },
-      { "image": "images/gallery3.jpg", "alt": "Luxury vehicle 3" }
+      {
+        "image": "images/gallery1.jpg",
+        "alt": "Luxury vehicle 1"
+      },
+      {
+        "image": "images/gallery2.jpg",
+        "alt": "Luxury vehicle 2"
+      },
+      {
+        "image": "images/gallery3.jpg",
+        "alt": "Luxury vehicle 3"
+      }
     ]
   },
   "inventory": {
