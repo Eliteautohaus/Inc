@@ -182,5 +182,10 @@
   },
   "footer": {
     "copyright": "Copyright © 2026 Elite Autohaus Inc – All Rights Reserved."
+  },
+  "pages": {
+    "yachtsales": {
+      "heroImage": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777171291/rphlrmz4j9glhbtpfycr.png"
+    }
   }
 }
