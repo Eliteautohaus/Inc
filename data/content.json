@@ -17,5 +17,16 @@
         "alt": "Gallery photo 3"
       }
     ]
+  },
+  "site": {
+    "name": "",
+    "tagline": "",
+    "address": "",
+    "phone": "",
+    "email": "",
+    "formspree": "mzdywgye"
+  },
+  "footer": {
+    "copyright": ""
   }
 }
