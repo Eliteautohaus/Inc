@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elite Autohaus – Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black:#000; --dark:#111; --dark2:#1a1a1a; --dark3:#252525; --white:#fff; --light:#ccc; --muted:#666; --sidebar:250px; --green:#4caf50; }
+    body { font-family:'Open Sans',sans-serif; background:var(--dark); color:var(--white); display:flex; min-height:100vh; }
+
+    aside { width:var(--sidebar); background:var(--black); border-right:1px solid var(--dark3); position:fixed; top:0; left:0; bottom:0; display:flex; flex-direction:column; z-index:10; overflow-y:auto; }
+    .sidebar-top { padding:1.2rem; border-bottom:1px solid var(--dark3); }
+    .sidebar-top img { height:44px; width:auto; }
+    .slabel { font-family:'Rajdhani',sans-serif; font-size:0.6rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); padding:1rem 1.2rem 0.3rem; }
+    .nbtn { display:flex; align-items:center; gap:0.7rem; padding:0.6rem 1.2rem; color:var(--muted); font-size:0.82rem; cursor:pointer; border:none; background:none; width:100%; text-align:left; transition:all 0.15s; font-family:'Open Sans',sans-serif; border-left:3px solid transparent; }
+    .nbtn:hover { color:var(--white); background:rgba(255,255,255,0.04); }
+    .nbtn.active { color:var(--white); background:rgba(255,255,255,0.06); border-left-color:var(--white); }
+    .sbot { margin-top:auto; padding:1rem; border-top:1px solid var(--dark3); }
+    .suser { font-size:0.74rem; color:var(--muted); margin-bottom:0.5rem; }
+    .suser span { color:var(--light); font-weight:600; }
+    .lbtn { width:100%; padding:0.55rem; background:transparent; border:1px solid var(--dark3); color:var(--muted); font-family:'Rajdhani',sans-serif; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
+    .lbtn:hover { border-color:var(--white); color:var(--white); }
+
+    main { margin-left:var(--sidebar); flex:1; padding:2rem; max-width:calc(100vw - var(--sidebar)); }
+    .topbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:2rem; padding-bottom:1.5rem; border-bottom:1px solid var(--dark3); gap:1rem; flex-wrap:wrap; }
+    .ptitle { font-family:'Rajdhani',sans-serif; font-size:1.3rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; }
+    .pvbtn { background:var(--white); color:var(--black); border:none; padding:0.5rem 1.2rem; font-family:'Rajdhani',sans-serif; font-size:0.75rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; cursor:pointer; text-decoration:none; transition:background 0.2s; }
+    .pvbtn:hover { background:var(--light); }
+    /* SAVE STATUS in topbar */
+    .save-status { font-size:0.78rem; color:var(--muted); font-family:'Rajdhani',sans-serif; letter-spacing:0.06em; display:flex; align-items:center; gap:0.4rem; }
+    .save-status.saving { color:#f0c040; }
+    .save-status.saved  { color:#88ee88; }
+    .save-status.error  { color:#ff8888; }
+
+    .panel { display:none; }
+    .panel.active { display:block; }
+
+    .card { background:var(--dark2); border:1px solid var(--dark3); border-top:2px solid rgba(255,255,255,0.12); padding:1.6rem; margin-bottom:1.4rem; }
+    .ctitle { font-family:'Rajdhani',sans-serif; font-size:0.8rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:1.1rem; padding-bottom:0.7rem; border-bottom:1px solid var(--dark3); }
+
+    .field { margin-bottom:1rem; }
+    .field label { display:block; font-family:'Rajdhani',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:0.3rem; }
+    .field input[type="text"],.field input[type="password"],.field input[type="url"],.field select,.field textarea {
+      width:100%; padding:0.6rem 0.85rem; background:var(--black); border:1px solid var(--dark3); border-bottom:2px solid var(--dark3);
+      color:var(--white); font-family:'Open Sans',sans-serif; font-size:0.86rem; outline:none; transition:border-color 0.2s; resize:vertical; -webkit-appearance:none;
+    }
+    .field select option { background:var(--dark2); }
+    .field input:focus,.field textarea:focus,.field select:focus { border-bottom-color:var(--white); }
+    .field textarea { min-height:80px; }
+    .hint { font-size:0.68rem; color:#555; margin-top:0.3rem; line-height:1.5; }
+
+    /* BUTTONS */
+    .sbtn { background:var(--white); color:var(--black); border:none; padding:0.65rem 1.8rem; font-family:'Rajdhani',sans-serif; font-size:0.76rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer; transition:all 0.2s; margin-top:0.4rem; position:relative; }
+    .sbtn:hover { background:var(--light); }
+    .sbtn:disabled { opacity:0.5; cursor:not-allowed; }
+    .sbtn.saving::after { content:' ⏳'; }
+    .sbtn.done::after { content:' ✅'; }
+    .dbtn { background:transparent; color:#ff7777; border:1px solid rgba(255,100,100,0.3); padding:0.45rem 1.1rem; font-family:'Rajdhani',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
+    .dbtn:hover { background:rgba(255,100,100,0.1); border-color:#ff7777; }
+    .gbtn { background:transparent; color:var(--light); border:1px solid var(--dark3); padding:0.45rem 1.1rem; font-family:'Rajdhani',sans-serif; font-size:0.7rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; transition:all 0.2s; }
+    .gbtn:hover { border-color:var(--white); color:var(--white); }
+    .abtn { background:none; border:1px dashed var(--dark3); padding:0.55rem 1.1rem; font-family:'Rajdhani',sans-serif; font-size:0.75rem; color:var(--muted); cursor:pointer; transition:all 0.2s; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; }
+    .abtn:hover { border-color:var(--white); color:var(--white); }
+    .xbtn { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); color:var(--muted); width:30px; height:30px; cursor:pointer; font-size:0.9rem; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.2s; }
+    .xbtn:hover { background:rgba(255,100,100,0.12); color:#ff9999; }
+
+    /* TOAST */
+    .toast { position:fixed; bottom:2rem; right:2rem; background:var(--dark2); border:1px solid var(--dark3); color:var(--white); padding:0.7rem 1.4rem; font-family:'Rajdhani',sans-serif; font-size:0.82rem; font-weight:700; letter-spacing:0.06em; opacity:0; transition:opacity 0.3s; pointer-events:none; z-index:9999; max-width:340px; }
+    .toast.show { opacity:1; }
+
+    /* UPLOAD */
+    .uploader { border:2px dashed var(--dark3); background:var(--black); position:relative; transition:all 0.2s; cursor:pointer; }
+    .uploader:hover,.uploader.drag { border-color:rgba(255,255,255,0.45); background:rgba(255,255,255,0.02); }
+    .uploader input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; z-index:2; }
+    .uploader-inner { padding:1.8rem 1.5rem; text-align:center; pointer-events:none; }
+    .uploader-inner .uicon { font-size:1.8rem; display:block; margin-bottom:0.5rem; }
+    .uploader-inner .utxt { font-size:0.8rem; color:var(--muted); line-height:1.6; }
+    .uploader-inner .utxt strong { color:var(--white); }
+    .uploader.compact .uploader-inner { padding:0.8rem 1rem; display:flex; align-items:center; gap:0.7rem; text-align:left; }
+    .uploader.compact .uicon { font-size:1.1rem; margin-bottom:0; flex-shrink:0; }
+    .uploader.compact .utxt { font-size:0.76rem; }
+
+    /* PHOTO GRID */
+    .photo-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(120px,1fr)); gap:0.6rem; margin-top:0.8rem; }
+    .photo-item { position:relative; aspect-ratio:4/3; background:var(--dark3); overflow:hidden; border:1px solid var(--dark3); }
+    .photo-item img { width:100%; height:100%; object-fit:cover; display:block; }
+    .photo-item .pdel { position:absolute; top:3px; right:3px; width:22px; height:22px; background:rgba(0,0,0,0.8); color:#fff; border:none; cursor:pointer; font-size:0.7rem; display:flex; align-items:center; justify-content:center; z-index:3; transition:background 0.15s; }
+    .photo-item .pdel:hover { background:rgba(200,0,0,0.9); }
+    .photo-item .pnum { position:absolute; bottom:3px; left:3px; background:rgba(0,0,0,0.75); color:#fff; font-size:0.6rem; font-family:'Rajdhani',sans-serif; font-weight:700; padding:1px 4px; }
+    .photo-item .pspin { position:absolute; inset:0; background:rgba(0,0,0,0.65); display:flex; align-items:center; justify-content:center; font-size:1.3rem; }
+
+    /* PROGRESS */
+    .uprog { height:3px; background:var(--dark3); margin-top:0.4rem; display:none; }
+    .uprog-bar { height:100%; background:var(--white); width:0; transition:width 0.2s; }
+
+    /* IBOX */
+    .ibox { background:#0d0d0d; border:1px solid #2a2a2a; padding:1rem 1.2rem; font-size:0.8rem; color:var(--muted); margin-bottom:1.1rem; line-height:1.75; }
+    .ibox code { background:rgba(255,255,255,0.07); padding:0.1rem 0.35rem; font-size:0.78rem; color:var(--light); border-radius:2px; }
+    .ibox strong { color:var(--white); }
+    .ibox a { color:var(--white); }
+
+    /* STEP BOX */
+    .step { display:flex; gap:1rem; margin-bottom:1rem; }
+    .step-num { width:28px; height:28px; background:var(--dark3); border:1px solid rgba(255,255,255,0.15); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Rajdhani',sans-serif; font-size:0.85rem; font-weight:700; flex-shrink:0; margin-top:0.1rem; }
+    .step-body { font-size:0.82rem; color:var(--light); line-height:1.7; }
+    .step-body strong { color:var(--white); }
+    .step-body code { background:rgba(255,255,255,0.07); padding:0.1rem 0.35rem; font-size:0.78rem; color:var(--light); }
+
+    /* TWO COL */
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:1.4rem; }
+
+    /* LISTING ROWS */
+    .lrow { background:var(--black); border:1px solid var(--dark3); padding:0.9rem 1.1rem; margin-bottom:0.4rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .lthumb { width:50px; height:38px; object-fit:cover; flex-shrink:0; border:1px solid var(--dark3); background:var(--dark3); }
+    .linfo { flex:1; min-width:0; }
+    .lname { font-weight:600; font-size:0.86rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .lmeta { font-size:0.7rem; color:var(--muted); margin-top:0.12rem; }
+
+    /* USER CARDS */
+    .ucard { background:var(--black); border:1px solid var(--dark3); padding:0.9rem 1.2rem; margin-bottom:0.5rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .uinfo { display:flex; align-items:center; gap:0.9rem; }
+    .uav { width:38px; height:38px; background:var(--dark3); border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Rajdhani',sans-serif; font-size:0.95rem; font-weight:700; color:var(--white); flex-shrink:0; }
+
+    /* MODAL */
+    .mbg { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.9); z-index:500; align-items:center; justify-content:center; }
+    .mbg.open { display:flex; }
+    .modal { background:var(--dark2); border:1px solid var(--dark3); border-top:2px solid rgba(255,255,255,0.2); padding:1.8rem; width:400px; max-width:95vw; }
+    .mtitle { font-family:'Rajdhani',sans-serif; font-size:1rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; margin-bottom:1.3rem; padding-bottom:0.7rem; border-bottom:1px solid var(--dark3); }
+    .macts { display:flex; gap:0.7rem; margin-top:1rem; justify-content:flex-end; }
+
+    /* GITHUB SETUP SCREEN */
+    #github-setup {
+      position: fixed; inset: 0; background: var(--black); z-index: 1000;
+      overflow-y: auto; /* SCROLLABLE */
+      -webkit-overflow-scrolling: touch;
+      padding: 2rem 1rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    .setup-box {
+      background: var(--dark2); border: 1px solid var(--dark3);
+      border-top: 3px solid var(--white); padding: 2.5rem;
+      width: 520px; max-width: 100%;
+      margin: auto; /* centres vertically when content is short */
+    }
+    .setup-logo { height: 46px; width: auto; margin-bottom: 1.6rem; display: block; }
+    .setup-title { font-family: 'Rajdhani', sans-serif; font-size: 1.4rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .setup-sub { color: var(--muted); font-size: 0.82rem; margin-bottom: 1.8rem; line-height: 1.6; }
+
+    /* FONT PREVIEW */
+    .fpreview { background:var(--black); border:1px solid var(--dark3); padding:1.3rem; margin-top:0.8rem; line-height:1.7; color:var(--white); transition:all 0.3s; }
+    .slrow { display:flex; align-items:center; gap:1rem; margin-top:0.35rem; }
+    .slrow input[type="range"] { flex:1; cursor:pointer; accent-color:var(--white); }
+    .slval { font-family:'Rajdhani',sans-serif; font-size:0.88rem; font-weight:700; color:var(--white); min-width:38px; text-align:right; }
+
+    @media (max-width:800px) {
+      aside { display:none; }
+      main { margin-left:0; padding:1rem; max-width:100vw; }
+      .two-col { grid-template-columns:1fr; }
+      #github-setup { padding:1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════
+     GITHUB SETUP SCREEN (shown on first use)
+══════════════════════════════════════ -->
+<div id="github-setup">
+  <div class="setup-box">
+    <img class="setup-logo" src="../images/logo.png" alt="Elite Autohaus" />
+    <div class="setup-title">One-Time Setup</div>
+    <div class="setup-sub">Connect to GitHub so every change you make saves instantly to your live site — no file downloads, ever.</div>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">Go to <strong>github.com</strong> → sign in → click your profile photo (top right) → <strong>Settings</strong> → scroll to the bottom → <strong>Developer settings</strong> → <strong>Personal access tokens</strong> → <strong>Tokens (classic)</strong> → <strong>Generate new token (classic)</strong></div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">Give it a name like <code>eliteautohaus-admin</code>. Under <strong>Select scopes</strong>, check the box next to <strong>repo</strong> (first one in the list). Scroll down → click <strong>Generate token</strong>. Copy the token — it starts with <code>ghp_</code></div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">Fill in the fields below. Your GitHub username and the name of your repository (the one where your site files live).</div>
+    </div>
+
+    <div style="margin-top:1.5rem;">
+      <div class="field"><label>GitHub Username</label><input type="text" id="setup-user" placeholder="e.g. Eliteautohaus" autocomplete="off" /></div>
+      <div class="field">
+        <label>Repository Name</label>
+        <input type="text" id="setup-repo" placeholder="e.g. lnc" autocomplete="off" oninput="cleanRepoInput(this)" />
+        <div class="hint" style="color:#f0c040;">⚠️ Just the short name — NOT the full URL.<br />
+        Example: if your site is <strong style="color:#ccc;">eliteautohaus.github.io/lnc</strong> → type <strong style="color:#fff;">lnc</strong><br />
+        If it's <strong style="color:#ccc;">eliteautohaus.github.io</strong> → type <strong style="color:#fff;">eliteautohaus.github.io</strong></div>
+      </div>
+      <div class="field"><label>Personal Access Token</label><input type="password" id="setup-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" autocomplete="off" /></div>
+      <div class="field"><label>Branch (leave as <code style="font-size:0.76rem;background:rgba(255,255,255,0.08);padding:0.1rem 0.3rem;">main</code> unless you changed it)</label><input type="text" id="setup-branch" placeholder="main" value="main" autocomplete="off" /></div>
+    </div>
+
+    <button class="sbtn" style="width:100%;margin-top:0.5rem;" onclick="saveGitHubSetup()">Connect to GitHub →</button>
+    <div id="setup-error" style="display:none;margin-top:1rem;padding:0.8rem 1rem;background:rgba(200,0,0,0.1);border:1px solid rgba(255,100,100,0.25);color:#ff9999;font-size:0.8rem;line-height:1.6;"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SIDEBAR
+══════════════════════════════════════ -->
+<aside>
+  <div class="sidebar-top"><img src="../images/logo.png" alt="Elite Autohaus" /></div>
+  <div class="slabel">Pages</div>
+  <button class="nbtn active" onclick="show('home',this)"><span>🏠</span> Home Page</button>
+  <button class="nbtn" onclick="show('sell',this)"><span>💰</span> Sell Page</button>
+  <button class="nbtn" onclick="show('shopper',this)"><span>🚗</span> Personal Shopper</button>
+  <button class="nbtn" onclick="show('service',this)"><span>🔧</span> Service</button>
+  <button class="nbtn" onclick="show('financing',this)"><span>📋</span> Financing</button>
+  <button class="nbtn" onclick="show('yachtsales',this)"><span>⚓</span> Yacht Sales</button>
+  <button class="nbtn" onclick="show('inventory',this)"><span>🛥</span> Yacht Inventory</button>
+  <button class="nbtn" onclick="show('contact',this)"><span>✉️</span> Contact</button>
+  <div class="slabel">Design & Settings</div>
+  <button class="nbtn" onclick="show('siteinfo',this)"><span>ℹ</span> Site Info & Email</button>
+  <button class="nbtn" onclick="show('fonts',this)"><span>🔤</span> Fonts & Sizes</button>
+  <button class="nbtn" onclick="show('cloudinary',this)"><span>☁️</span> Image Upload Setup</button>
+  <button class="nbtn" onclick="show('github',this)"><span>⚙️</span> GitHub Settings</button>
+  <div class="slabel">Admin</div>
+  <button class="nbtn" onclick="show('users',this)"><span>👥</span> Users & Passwords</button>
+  <div class="sbot">
+    <div class="suser">Logged in as <span id="logged-in-name">—</span></div>
+    <button class="lbtn" onclick="logout()">Log Out</button>
+  </div>
+</aside>
+
+<!-- ══════════════════════════════════════
+     MAIN
+══════════════════════════════════════ -->
+<main>
+  <div class="topbar">
+    <div class="ptitle" id="panel-title">Home Page</div>
+    <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+      <div class="save-status" id="save-status">● Ready</div>
+      <a href="../index.html" target="_blank" class="pvbtn">👁 View Site</a>
+    </div>
+  </div>
+
+  <!-- HOME -->
+  <div class="panel active" id="panel-home">
+    <div class="card">
+      <div class="ctitle">🌅 Hero Banner Photo</div>
+      <div id="hero-photos"></div>
+      <div class="uploader" id="uz-hero" ondragover="dov(event,'uz-hero')" ondragleave="dol('uz-hero')" ondrop="dof(event,'uz-hero','hero',1)">
+        <input type="file" accept="image/*" onchange="hfc(event,'uz-hero','hero',1)" />
+        <div class="uploader-inner"><span class="uicon">🌅</span><div class="utxt"><strong>Click or drag to upload hero photo</strong><br/>Best: wide landscape, at least 1600px wide</div></div>
+      </div>
+      <div class="uprog" id="prog-hero"><div class="uprog-bar" id="progbar-hero"></div></div>
+      <div id="hero-save-status" style="display:none;margin-top:0.6rem;font-size:0.8rem;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:0.06em;padding:0.5rem 0.75rem;background:var(--black);border:1px solid var(--dark3);"></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">🖊 About / Intro Text</div>
+      <div class="field"><label>Section Heading</label><input type="text" id="intro-heading" oninput="markDirty()" /></div>
+      <div class="field"><label>Body Text</label><textarea id="intro-body" rows="8" oninput="markDirty()"></textarea><div class="hint">Use a blank line between paragraphs.</div></div>
+      <button class="sbtn" id="btn-intro" onclick="saveSection('intro',this)">💾 Save Intro</button>
+    </div>
+    <div class="card">
+      <div class="ctitle">🖼 Home Page Gallery (3 photos)</div>
+      <div id="gallery-photos"></div>
+      <div class="uploader" id="uz-gal" ondragover="dov(event,'uz-gal')" ondragleave="dol('uz-gal')" ondrop="dof(event,'uz-gal','gallery',3)">
+        <input type="file" accept="image/*" multiple onchange="hfc(event,'uz-gal','gallery',3)" />
+        <div class="uploader-inner"><span class="uicon">📷</span><div class="utxt"><strong>Click or drag gallery photos here</strong><br/>Up to 3 photos — shown in the bottom row of the home page</div></div>
+      </div>
+      <div class="uprog" id="prog-gallery"><div class="uprog-bar" id="progbar-gallery"></div></div>
+      <div id="gallery-save-status" style="display:none;margin-top:0.6rem;font-size:0.8rem;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:0.06em;padding:0.5rem 0.75rem;background:var(--black);border:1px solid var(--dark3);"></div>
+      <button class="sbtn" style="margin-top:1rem;" id="btn-gallery" onclick="saveSection('gallery',this)">💾 Save Gallery</button>
+    </div>
+    <div class="two-col">
+      <div class="card">
+        <div class="ctitle">🚗 Buy a Car Box</div>
+        <div class="field"><label>Heading</label><input type="text" id="cta1-heading" oninput="markDirty()" /></div>
+        <div class="field"><label>Text</label><textarea id="cta1-body" rows="4" oninput="markDirty()"></textarea></div>
+        <div class="field"><label>Button Label</label><input type="text" id="cta1-btntext" oninput="markDirty()" /></div>
+        <div class="field"><label>Button Link</label><input type="url" id="cta1-btnurl" oninput="markDirty()" /></div>
+        <button class="sbtn" id="btn-cta1" onclick="saveSection('cta1',this)">💾 Save</button>
+      </div>
+      <div class="card">
+        <div class="ctitle">💰 Sell a Car Box</div>
+        <div class="field"><label>Heading</label><input type="text" id="cta2-heading" oninput="markDirty()" /></div>
+        <div class="field"><label>Text</label><textarea id="cta2-body" rows="4" oninput="markDirty()"></textarea></div>
+        <div class="field"><label>Button Label</label><input type="text" id="cta2-btntext" oninput="markDirty()" /></div>
+        <div class="field"><label>Button Link</label><input type="url" id="cta2-btnurl" oninput="markDirty()" /></div>
+        <button class="sbtn" id="btn-cta2" onclick="saveSection('cta2',this)">💾 Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SELL -->
+  <div class="panel" id="panel-sell">
+    <div class="card">
+      <div class="ctitle">✏️ Sell Page</div>
+      <div class="field"><label>Page Title</label><input type="text" id="sell-title" value="Sell Your Car" oninput="markDirty()" /></div>
+      <div class="field"><label>Intro Paragraph</label><textarea id="sell-intro" rows="5" oninput="markDirty()">Elite Autohaus will give you an unbiased quote — likely hundreds or thousands more than any dealer.</textarea></div>
+      <button class="sbtn" id="btn-sell" onclick="saveSection('sell',this)">💾 Save</button>
+    </div>
+  </div>
+
+  <!-- PERSONAL SHOPPER -->
+  <div class="panel" id="panel-shopper">
+    <div class="card">
+      <div class="ctitle">✏️ Personal Shopper Steps</div>
+      <div class="field"><label>Step 1 Heading</label><input type="text" id="step1h" value="Tell Us What You Want" oninput="markDirty()" /></div>
+      <div class="field"><label>Step 1 Text</label><textarea id="step1t" rows="3" oninput="markDirty()">Tell us the make, model, colour and budget. We'll handle the rest.</textarea></div>
+      <div class="field"><label>Step 2 Heading</label><input type="text" id="step2h" value="We Search & Inspect" oninput="markDirty()" /></div>
+      <div class="field"><label>Step 2 Text</label><textarea id="step2t" rows="3" oninput="markDirty()">We find the best matches and personally inspect each one.</textarea></div>
+      <div class="field"><label>Step 3 Heading</label><input type="text" id="step3h" value="Drive It Home" oninput="markDirty()" /></div>
+      <div class="field"><label>Step 3 Text</label><textarea id="step3t" rows="3" oninput="markDirty()">We purchase on your behalf. Not as described? Full deposit refund.</textarea></div>
+      <button class="sbtn" id="btn-shopper" onclick="saveSection('shopper',this)">💾 Save</button>
+    </div>
+  </div>
+
+  <!-- SERVICE -->
+  <div class="panel" id="panel-service">
+    <div class="card">
+      <div class="ctitle">🔧 Automotive Services</div>
+      <div class="two-col">
+        <div class="field"><label>Service 1</label><input type="text" id="as1n" value="Maintenance" oninput="markDirty()" /></div>
+        <div class="field"><label>Description</label><input type="text" id="as1d" value="Full Dealer Scheduled Maintenance" oninput="markDirty()" /></div>
+        <div class="field"><label>Service 2</label><input type="text" id="as2n" value="Tires & Wheel Alignment" oninput="markDirty()" /></div>
+        <div class="field"><label>Description</label><input type="text" id="as2d" value="Tire Sales, Mounting, Balancing, Laser Alignments" oninput="markDirty()" /></div>
+        <div class="field"><label>Service 3</label><input type="text" id="as3n" value="Brakes & Suspension" oninput="markDirty()" /></div>
+        <div class="field"><label>Description</label><input type="text" id="as3d" value="Full Brake & Suspension Service" oninput="markDirty()" /></div>
+      </div>
+      <button class="sbtn" id="btn-service" onclick="saveSection('service',this)">💾 Save Services</button>
+    </div>
+  </div>
+
+  <!-- FINANCING -->
+  <div class="panel" id="panel-financing">
+    <div class="card">
+      <div class="ctitle">📋 Financing Page</div>
+      <div class="field"><label>Contact Email</label><input type="text" id="fin-email" value="sales.eliteautohaus@gmail.com" oninput="markDirty()" /></div>
+      <div class="field"><label>Intro Text</label><textarea id="fin-intro" rows="3" oninput="markDirty()">All information is kept strictly confidential.</textarea></div>
+      <button class="sbtn" id="btn-financing" onclick="saveSection('financing',this)">💾 Save</button>
+    </div>
+  </div>
+
+  <!-- YACHT SALES -->
+  <div class="panel" id="panel-yachtsales">
+    <div class="card">
+      <div class="ctitle">🌊 Yacht Hero Photo</div>
+      <div id="yachthero-photos"></div>
+      <div class="uploader" id="uz-yachthero" ondragover="dov(event,'uz-yachthero')" ondragleave="dol('uz-yachthero')" ondrop="dof(event,'uz-yachthero','yachthero',1)">
+        <input type="file" accept="image/*" onchange="hfc(event,'uz-yachthero','yachthero',1)" />
+        <div class="uploader-inner"><span class="uicon">🌊</span><div class="utxt"><strong>Upload yacht sales hero photo</strong></div></div>
+      </div>
+      <div class="uprog" id="prog-yachthero"><div class="uprog-bar" id="progbar-yachthero"></div></div>
+    </div>
+
+    <div class="card">
+      <div class="ctitle">⚓ Yacht Sales Text</div>
+      <div class="field"><label>Hero Heading</label><input type="text" id="ys-heading" oninput="markDirty()" /></div>
+      <div class="field"><label>Hero Tagline</label><input type="text" id="ys-tagline" oninput="markDirty()" /></div>
+      <div class="field"><label>Intro Paragraph</label><textarea id="ys-intro" rows="5" oninput="markDirty()"></textarea></div>
+      <button class="sbtn" id="btn-yachtsales" onclick="saveSection('yachtsales',this)">💾 Save Yacht Sales</button>
+    </div>
+
+    <!-- BOAT BIDS PARTNER EDITOR -->
+    <div class="card">
+      <div class="ctitle">🚤 Boat Bids Partner Section</div>
+      <p style="color:var(--muted);font-size:0.82rem;margin-bottom:1.2rem;line-height:1.6;">Edit the partner section that appears at the bottom of the Yacht Sales page.</p>
+
+      <div class="field"><label>Section Heading</label><input type="text" id="bb-heading" oninput="markDirty()" /></div>
+      <div class="field">
+        <label>Description Text</label>
+        <textarea id="bb-body" rows="4" oninput="markDirty()"></textarea>
+        <div class="hint">Use a blank line between paragraphs.</div>
+      </div>
+      <div class="two-col">
+        <div class="field"><label>Button Text</label><input type="text" id="bb-btntext" oninput="markDirty()" /></div>
+        <div class="field"><label>Button Link (URL)</label><input type="url" id="bb-btnurl" oninput="markDirty()" /></div>
+      </div>
+
+      <div style="margin-top:0.5rem;">
+        <div style="font-family:'Rajdhani',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.6rem;">Partner Logo / Image (replaces the ⚓ icon)</div>
+        <div id="boatbids-photos"></div>
+        <div class="uploader" id="uz-boatbids" ondragover="dov(event,'uz-boatbids')" ondragleave="dol('uz-boatbids')" ondrop="dof(event,'uz-boatbids','boatbids',1)">
+          <input type="file" accept="image/*" onchange="hfc(event,'uz-boatbids','boatbids',1)" />
+          <div class="uploader-inner compact"><span class="uicon">🖼</span><div class="utxt"><strong>Upload partner logo or image</strong><br/>Replaces the anchor icon on the right side</div></div>
+        </div>
+        <div class="uprog" id="prog-boatbids"><div class="uprog-bar" id="progbar-boatbids"></div></div>
+      </div>
+
+      <button class="sbtn" id="btn-boatbids" style="margin-top:1rem;" onclick="saveSection('boatbids',this)">💾 Save Boat Bids Section</button>
+    </div>
+  </div>
+
+  <!-- YACHT INVENTORY -->
+  <div class="panel" id="panel-inventory">
+    <div class="card">
+      <div class="ctitle">🛥 Yacht Inventory Listings</div>
+      <p style="color:var(--muted);font-size:0.82rem;margin-bottom:1.2rem;line-height:1.6;">Click <strong style="color:var(--white);">✏ Edit</strong> on any listing to update it. Changes save directly to your live site.</p>
+      <div id="inventory-summary"></div>
+      <button class="abtn" onclick="addListing()">＋ Add New Listing</button>
+    </div>
+
+    <!-- LISTING EDITOR -->
+    <div id="listing-editor" style="display:none;">
+      <div class="card" style="border-top-color:rgba(255,255,255,0.3);">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.1rem;padding-bottom:0.7rem;border-bottom:1px solid var(--dark3);">
+          <div class="ctitle" style="margin-bottom:0;padding-bottom:0;border-bottom:none;">✏ Editing: <span id="le-label">—</span></div>
+          <button class="gbtn" onclick="closeEditor()">← All Listings</button>
+        </div>
+        <div class="two-col">
+          <div class="field"><label>Vessel Name</label><input type="text" id="le-name" oninput="markDirty()" /></div>
+          <div class="field"><label>Price</label><input type="text" id="le-price" placeholder="$99,999 CAD" oninput="markDirty()" /></div>
+        </div>
+        <div class="field"><label>Status</label>
+          <select id="le-status" oninput="markDirty()">
+            <option value="available">Available</option>
+            <option value="coming-soon">Coming Soon</option>
+            <option value="sold">Sold</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Description</label>
+          <textarea id="le-desc" rows="7" oninput="markDirty()" placeholder="Describe this vessel — engines, hours, condition, features, recent work done..."></textarea>
+          <div class="hint">Use blank lines between paragraphs. Shown on the listing detail page.</div>
+        </div>
+        <div style="margin-bottom:0.5rem;">
+          <div style="font-family:'Rajdhani',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:0.7rem;">Photos — Upload as many as you like</div>
+          <div id="listing-photo-grid" class="photo-grid"></div>
+          <div class="uploader" id="uz-listing" style="margin-top:0.7rem;" ondragover="dov(event,'uz-listing')" ondragleave="dol('uz-listing')" ondrop="dof(event,'uz-listing','listing',50)">
+            <input type="file" accept="image/*" multiple onchange="hfc(event,'uz-listing','listing',50)" />
+            <div class="uploader-inner"><span class="uicon">📸</span><div class="utxt"><strong>Click or drag photos here</strong><br/>Select multiple at once — hold Shift or Cmd/Ctrl to pick several</div></div>
+          </div>
+          <div class="uprog" id="prog-listing"><div class="uprog-bar" id="progbar-listing"></div></div>
+          <div id="listing-save-status" style="display:none;margin-top:0.6rem;font-size:0.8rem;font-family:'Rajdhani',sans-serif;font-weight:700;letter-spacing:0.06em;padding:0.5rem 0.75rem;background:var(--black);border:1px solid var(--dark3);"></div>
+        </div>
+        <div style="display:flex;gap:0.75rem;align-items:center;flex-wrap:wrap;margin-top:1.4rem;padding-top:1.1rem;border-top:1px solid var(--dark3);">
+          <button class="sbtn" id="btn-listing-save" style="margin-top:0;" onclick="saveListing(this)">💾 Save Text & Status Changes</button>
+          <button class="dbtn" onclick="deleteListing()">✕ Delete Listing</button>
+          <span style="font-size:0.72rem;color:var(--muted);">Photos save automatically when uploaded</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="panel" id="panel-contact">
+    <div class="card">
+      <div class="ctitle">✉️ Contact Page Info</div>
+      <div class="field"><label>Email Address</label><input type="text" id="contact-email" oninput="markDirty()" /></div>
+      <div class="field"><label>Service Area</label><input type="text" id="contact-area" value="GTA and Surrounding Area" oninput="markDirty()" /></div>
+      <div class="field"><label>Hours</label><input type="text" id="contact-hours" value="By Appointment" oninput="markDirty()" /></div>
+      <div class="field"><label>Intro Message</label><textarea id="contact-intro" rows="3" oninput="markDirty()">Let us know what car you are dreaming about — or if you are looking to sell!</textarea></div>
+      <button class="sbtn" id="btn-contact" onclick="saveSection('contact',this)">💾 Save</button>
+    </div>
+  </div>
+
+  <!-- SITE INFO & EMAIL -->
+  <div class="panel" id="panel-siteinfo">
+    <div class="card">
+      <div class="ctitle">ℹ Site Information</div>
+      <div class="field"><label>Business Name</label><input type="text" id="site-name" oninput="markDirty()" /></div>
+      <div class="field"><label>Tagline</label><input type="text" id="site-tagline" oninput="markDirty()" /></div>
+      <div class="field"><label>Service Area</label><input type="text" id="site-address" oninput="markDirty()" /></div>
+      <div class="field"><label>Phone</label><input type="text" id="site-phone" oninput="markDirty()" /></div>
+      <div class="field"><label>Email</label><input type="text" id="site-email" oninput="markDirty()" /></div>
+      <div class="field"><label>Footer Copyright</label><input type="text" id="footer-copyright" oninput="markDirty()" /></div>
+      <button class="sbtn" id="btn-siteinfo" onclick="saveSection('siteinfo',this)">💾 Save Site Info</button>
+    </div>
+    <div class="card">
+      <div class="ctitle">📧 Email Setup — Formspree</div>
+      <div class="ibox">To make all forms email <strong>sales.eliteautohaus@gmail.com</strong>:<br /><br />
+        1. Go to <strong>formspree.io</strong> → sign up free with Gmail<br />
+        2. Click <strong>+ New Form</strong> → name it "Elite Autohaus" → email: sales.eliteautohaus@gmail.com<br />
+        3. Copy the Form ID (looks like <code>xpwqdabc</code>)<br />
+        4. Paste below → Save — forms will immediately start sending emails
+      </div>
+      <div class="field"><label>Formspree Form ID</label><input type="text" id="site-formspree" placeholder="e.g. xpwqdabc" oninput="markDirty()" /><div class="hint">Just the 8-character ID. Free = 50 submissions/month.</div></div>
+      <button class="sbtn" id="btn-formspree" onclick="saveSection('siteinfo',this)">💾 Save Email Settings</button>
+    </div>
+  </div>
+
+  <!-- FONTS -->
+  <div class="panel" id="panel-fonts">
+    <div class="card">
+      <div class="ctitle">🔤 Body Font</div>
+      <div class="field"><label>Font</label>
+        <select id="body-font" onchange="previewFonts()">
+          <option value="'Open Sans',sans-serif">Open Sans (current)</option>
+          <option value="'Roboto',sans-serif">Roboto</option>
+          <option value="'Lato',sans-serif">Lato</option>
+          <option value="'Raleway',sans-serif">Raleway</option>
+          <option value="'Nunito',sans-serif">Nunito</option>
+          <option value="'Playfair Display',serif">Playfair Display</option>
+          <option value="Georgia,serif">Georgia</option>
+        </select>
+      </div>
+      <div class="field"><label>Size</label>
+        <div class="slrow"><input type="range" id="body-size" min="12" max="22" value="15" oninput="document.getElementById('bsv').textContent=this.value+'px';previewFonts()" /><div class="slval" id="bsv">15px</div></div>
+      </div>
+      <div class="fpreview" id="body-preview">Established in 2014, Elite Autohaus has been providing quality Pre-Owned Vehicles for over 12 years in GTA and surrounding area. We have helped thousands of customers buy, sell and trade their vehicles.</div>
+    </div>
+    <div class="card">
+      <div class="ctitle">🔤 Heading Font</div>
+      <div class="field"><label>Font</label>
+        <select id="heading-font" onchange="previewFonts()">
+          <option value="'Rajdhani',sans-serif">Rajdhani (current)</option>
+          <option value="'Oswald',sans-serif">Oswald</option>
+          <option value="'Barlow Condensed',sans-serif">Barlow Condensed</option>
+          <option value="'Exo 2',sans-serif">Exo 2</option>
+          <option value="'Orbitron',sans-serif">Orbitron</option>
+          <option value="'Anton',sans-serif">Anton</option>
+          <option value="'Cinzel',serif">Cinzel</option>
+        </select>
+      </div>
+      <div class="field"><label>Size</label>
+        <div class="slrow"><input type="range" id="heading-size" min="20" max="64" value="32" oninput="document.getElementById('hsv').textContent=this.value+'px';previewFonts()" /><div class="slval" id="hsv">32px</div></div>
+      </div>
+      <div class="fpreview" id="heading-preview" style="font-size:32px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;">About Elite Autohaus</div>
+    </div>
+    <div class="ibox">After choosing fonts, click <strong>Download Font Instructions</strong> — tells you exactly which 4 lines to change in <code>style.css</code>.</div>
+    <button class="sbtn" onclick="downloadFontInstructions()">⬇ Download Font Instructions</button>
+  </div>
+
+  <!-- CLOUDINARY -->
+  <div class="panel" id="panel-cloudinary">
+    <div class="card">
+      <div class="ctitle">☁️ Image Upload Setup — Cloudinary (Free)</div>
+      <div class="ibox">
+        <strong>Do this once — then all upload buttons work everywhere.</strong><br /><br />
+        <strong>Step 1</strong> — Go to <strong>cloudinary.com</strong> → Sign up free (25GB free storage)<br /><br />
+        <strong>Step 2</strong> — After signing in → <strong>Settings → Upload → Upload Presets → Add upload preset</strong><br />
+        &nbsp;&nbsp;• Set <strong>Signing Mode</strong> to <strong>Unsigned</strong><br />
+        &nbsp;&nbsp;• Name it <code>eliteautohaus</code> → Save<br /><br />
+        <strong>Step 3</strong> — Go to your Cloudinary <strong>Dashboard</strong> → copy your <strong>Cloud Name</strong> (top left)<br /><br />
+        <strong>Step 4</strong> — Enter both below → Save
+      </div>
+      <div class="field"><label>Cloud Name</label><input type="text" id="cl-cloud" placeholder="e.g. dxyz1234" /></div>
+      <div class="field"><label>Upload Preset Name</label><input type="text" id="cl-preset" placeholder="e.g. eliteautohaus" /></div>
+      <button class="sbtn" onclick="saveCloudinary()">💾 Save & Enable Uploads</button>
+      <div id="cl-status" style="margin-top:1rem;font-size:0.8rem;"></div>
+      <div style="margin-top:1rem;padding:0.8rem 1rem;background:var(--black);border:1px solid var(--dark3);font-size:0.78rem;color:var(--muted);" id="cl-current">Not configured yet.</div>
+    </div>
+    <div class="card">
+      <div class="ctitle">🧪 Test Upload</div>
+      <div class="uploader" id="uz-test" ondragover="dov(event,'uz-test')" ondragleave="dol('uz-test')" ondrop="dof(event,'uz-test','test',1)">
+        <input type="file" accept="image/*" onchange="hfc(event,'uz-test','test',1)" />
+        <div class="uploader-inner"><span class="uicon">🧪</span><div class="utxt"><strong>Click to test your upload setup</strong></div></div>
+      </div>
+      <div class="uprog" id="prog-test"><div class="uprog-bar" id="progbar-test"></div></div>
+      <div id="test-photos" style="margin-top:0.8rem;"></div>
+    </div>
+  </div>
+
+  <!-- GITHUB SETTINGS -->
+  <div class="panel" id="panel-github">
+    <div class="card">
+      <div class="ctitle">⚙️ GitHub Connection</div>
+      <div id="gh-current-info" style="margin-bottom:1.2rem;padding:0.8rem 1rem;background:var(--black);border:1px solid var(--dark3);font-size:0.8rem;color:var(--light);line-height:1.8;"></div>
+      <div class="field"><label>GitHub Username</label><input type="text" id="gh-user" /></div>
+      <div class="field"><label>Repository Name</label><input type="text" id="gh-repo" /></div>
+      <div class="field"><label>Personal Access Token</label><input type="password" id="gh-token" /></div>
+      <div class="field"><label>Branch</label><input type="text" id="gh-branch" value="main" /></div>
+      <button class="sbtn" onclick="updateGitHubSetup()">💾 Update GitHub Settings</button>
+    </div>
+    <div class="ibox">⚠️ Your token is stored only in <strong>this browser</strong> — it never leaves your device and is never sent anywhere except directly to GitHub's API over HTTPS.</div>
+  </div>
+
+  <!-- USERS -->
+  <div class="panel" id="panel-users">
+    <div class="card">
+      <div class="ctitle">👥 Admin Users</div>
+      <div id="user-list"></div>
+      <button class="abtn" style="margin-top:0.5rem;" onclick="openAddUser()">＋ Add New User</button>
+    </div>
+    <div class="card">
+      <div class="ctitle">🔑 Change My Password</div>
+      <div class="field"><label>Current Password</label><input type="password" id="my-cur-pw" placeholder="••••••••" /></div>
+      <div class="field"><label>New Password</label><input type="password" id="my-new-pw" placeholder="••••••••" /></div>
+      <div class="field"><label>Confirm New Password</label><input type="password" id="my-con-pw" placeholder="••••••••" /></div>
+      <button class="sbtn" onclick="changeMyPw()">🔑 Update Password</button>
+    </div>
+  </div>
+
+</main>
+
+<!-- USER MODAL -->
+<div class="mbg" id="user-modal">
+  <div class="modal">
+    <div class="mtitle" id="modal-title">Add New User</div>
+    <div class="field"><label>Username</label><input type="text" id="modal-user" placeholder="e.g. Sarah" /></div>
+    <div class="field"><label>Password</label><input type="password" id="modal-pass" placeholder="Strong password" /></div>
+    <div class="field"><label>Role</label>
+      <select id="modal-role"><option value="admin">Admin — full access</option><option value="editor">Editor</option></select>
+    </div>
+    <div class="macts">
+      <button class="gbtn" onclick="closeModal()">Cancel</button>
+      <button class="sbtn" style="margin-top:0;" onclick="saveUser()">Save User</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+'use strict';
+
+/* ══════════════════════════════════════
+   GITHUB API
+══════════════════════════════════════ */
+function getGH() {
+  return {
+    user:   localStorage.getItem('gh_user')   || '',
+    repo:   localStorage.getItem('gh_repo')   || '',
+    token:  localStorage.getItem('gh_token')  || '',
+    branch: localStorage.getItem('gh_branch') || 'main'
+  };
+}
+
+function saveGHLocally(user, repo, token, branch) {
+  localStorage.setItem('gh_user',   user);
+  localStorage.setItem('gh_repo',   repo);
+  localStorage.setItem('gh_token',  token);
+  localStorage.setItem('gh_branch', branch || 'main');
+}
+
+/* Auto-strip full GitHub URLs pasted into repo field */
+function cleanRepoInput(el) {
+  let val = el.value.trim();
+  // Strip common URL patterns people paste by mistake
+  val = val.replace(/https?:\/\//g, '');
+  val = val.replace(/github\.io\//g, '|').split('|')[1] || val; // extract path after github.io/
+  val = val.replace(/github\.com\/[^/]+\//g, ''); // strip github.com/user/
+  val = val.replace(/\/$/g, ''); // strip trailing slash
+  // Only update if it changed (avoids cursor jump)
+  if (val !== el.value) el.value = val;
+}
+
+async function saveGitHubSetup() {
+  const user   = document.getElementById('setup-user').value.trim();
+  let   repo   = document.getElementById('setup-repo').value.trim();
+  const token  = document.getElementById('setup-token').value.trim();
+  const branch = document.getElementById('setup-branch').value.trim() || 'main';
+
+  const errEl = document.getElementById('setup-error');
+  errEl.style.display = 'none';
+
+  if (!user || !repo || !token) {
+    errEl.innerHTML = '⚠️ Please fill in all three fields above.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  // Auto-clean repo if they pasted a URL
+  if (repo.includes('github.io/')) {
+    repo = repo.split('github.io/')[1].replace(/\//g, '');
+    document.getElementById('setup-repo').value = repo;
+  }
+  if (repo.includes('github.com/')) {
+    repo = repo.split('/').pop().replace(/\//g, '');
+    document.getElementById('setup-repo').value = repo;
+  }
+  if (repo.includes('http')) {
+    repo = repo.replace(/https?:\/\/[^/]+\//g,'').replace(/\//g,'');
+    document.getElementById('setup-repo').value = repo;
+  }
+
+  setSaveStatus('saving', '⏳ Testing connection...');
+  const btn = document.querySelector('#github-setup .sbtn');
+  btn.disabled = true; btn.textContent = 'Connecting...';
+
+  try {
+    const res = await ghGet(`https://api.github.com/repos/${user}/${repo}/contents/data/content.json`, token);
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || 'HTTP ' + res.status);
+    }
+    // Success
+    saveGHLocally(user, repo, token, branch);
+    document.getElementById('github-setup').style.display = 'none';
+    setSaveStatus('saved', '✅ Connected to GitHub');
+    showToast('✅ Connected! All changes will now save directly to your live site.');
+    loadContent();
+  } catch(e) {
+    const msg = (e.message || '').toLowerCase();
+    let fix = '';
+
+    if (msg.includes('not found') || msg.includes('404')) {
+      fix = `<br /><br />
+        <strong style="color:#fff;">Repository not found.</strong> This usually means:<br />
+        • The <strong>Repository Name</strong> is wrong — you entered: <code style="background:rgba(255,255,255,0.08);padding:0.1rem 0.3rem;">${repo}</code><br />
+        • To find the correct name: go to <strong>github.com</strong>, open your repository, and look at the URL: <code style="background:rgba(255,255,255,0.08);padding:0.1rem 0.3rem;">github.com/Eliteautohaus/<strong>NAME</strong></code> — use just that last part<br />
+        • Or the <strong>Username</strong> is wrong (case sensitive) — you entered: <code style="background:rgba(255,255,255,0.08);padding:0.1rem 0.3rem;">${user}</code>`;
+    } else if (msg.includes('bad credential') || msg.includes('401') || msg.includes('unauthorized')) {
+      fix = `<br /><br />
+        <strong style="color:#fff;">Token rejected.</strong> This usually means:<br />
+        • Your token has expired or was deleted — go to GitHub → Settings → Developer settings → Personal access tokens → generate a new one<br />
+        • Make sure you checked the <strong>repo</strong> scope when creating the token`;
+    } else if (msg.includes('forbidden') || msg.includes('403')) {
+      fix = `<br /><br />
+        <strong style="color:#fff;">Access denied.</strong> Your token doesn't have permission.<br />
+        • Go to GitHub → Settings → Developer settings → Personal access tokens → delete the old token → create a new one with <strong>repo</strong> scope checked`;
+    } else {
+      fix = `<br /><br />
+        Check these common causes:<br />
+        • Repository name should be just the short name (e.g. <code style="background:rgba(255,255,255,0.08);padding:0.1rem 0.3rem;">lnc</code>) — not the full URL<br />
+        • Token must have <strong>repo</strong> scope checked<br />
+        • Repository must contain a <strong>data/content.json</strong> file`;
+    }
+
+    errEl.innerHTML = `❌ <strong>Could not connect</strong> — ${e.message}${fix}`;
+    errEl.style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Try Again →';
+    setSaveStatus('', '● Ready');
+  }
+}
+
+function updateGitHubSetup() {
+  const user   = document.getElementById('gh-user').value.trim();
+  const repo   = document.getElementById('gh-repo').value.trim();
+  const token  = document.getElementById('gh-token').value.trim();
+  const branch = document.getElementById('gh-branch').value.trim() || 'main';
+  if (!user || !repo || !token) { alert('Please fill in all fields.'); return; }
+  saveGHLocally(user, repo, token, branch);
+  updateGHInfo();
+  showToast('✅ GitHub settings updated!');
+}
+
+function updateGHInfo() {
+  const gh = getGH();
+  const el = document.getElementById('gh-current-info');
+  if (el) el.innerHTML = `Username: <strong style="color:#fff">${gh.user||'—'}</strong><br>Repo: <strong style="color:#fff">${gh.repo||'—'}</strong><br>Branch: <strong style="color:#fff">${gh.branch||'main'}</strong><br>Token: <strong style="color:#fff">${gh.token ? '••••••••' + gh.token.slice(-4) : '—'}</strong>`;
+  if (document.getElementById('gh-user')) { document.getElementById('gh-user').value = gh.user; document.getElementById('gh-repo').value = gh.repo; document.getElementById('gh-branch').value = gh.branch; document.getElementById('gh-token').value = ''; }
+}
+
+function ghGet(url, token) {
+  return fetch(url, { headers: { 'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json' } });
+}
+
+async function writeToGitHub(path, content, message) {
+  const gh = getGH();
+  const url = `https://api.github.com/repos/${gh.user}/${gh.repo}/contents/${path}`;
+
+  // Get current SHA (needed for update)
+  let sha = null;
+  try {
+    const r = await ghGet(url, gh.token);
+    if (r.ok) { const d = await r.json(); sha = d.sha; }
+  } catch(e){}
+
+  const body = { message, content: btoa(unescape(encodeURIComponent(content))), branch: gh.branch };
+  if (sha) body.sha = sha;
+
+  const res = await fetch(url, {
+    method: 'PUT',
+    headers: { 'Authorization': 'token ' + gh.token, 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.message || 'GitHub write failed: HTTP ' + res.status);
+  }
+  return res.json();
+}
+
+/* ══════════════════════════════════════
+   CONTENT — LOAD & SAVE
+══════════════════════════════════════ */
+let siteData = {};
+let isDirty = false;
+
+async function loadContent() {
+  setSaveStatus('saving', '⏳ Loading...');
+  try {
+    const gh = getGH();
+    const url = `https://api.github.com/repos/${gh.user}/${gh.repo}/contents/data/content.json`;
+    const r = await ghGet(url, gh.token);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const d = await r.json();
+    siteData = JSON.parse(decodeURIComponent(escape(atob(d.content.replace(/\n/g, '')))));
+    populate();
+    setSaveStatus('saved', '✅ Loaded');
+    setTimeout(() => setSaveStatus('', '● Ready'), 2000);
+  } catch(e) {
+    setSaveStatus('error', '❌ Load failed: ' + e.message);
+    showToast('❌ Could not load content: ' + e.message);
+  }
+}
+
+async function pushToGitHub(btn) {
+  setSaveStatus('saving', '⏳ Saving to GitHub...');
+  if (btn) { btn.disabled = true; btn.classList.add('saving'); }
+  try {
+    const json = JSON.stringify(siteData, null, 2);
+    await writeToGitHub('data/content.json', json, 'Admin: update content');
+    setSaveStatus('saved', '✅ Saved — site updating...');
+    if (btn) { btn.classList.remove('saving'); btn.classList.add('done'); }
+    showToast('✅ Saved! Your site will update in ~30 seconds.');
+    setTimeout(() => { setSaveStatus('', '● Ready'); if (btn) { btn.classList.remove('done'); btn.disabled = false; } }, 4000);
+    isDirty = false;
+  } catch(e) {
+    setSaveStatus('error', '❌ Save failed: ' + e.message);
+    showToast('❌ Save failed: ' + e.message);
+    if (btn) { btn.disabled = false; btn.classList.remove('saving'); }
+  }
+}
+
+function markDirty() { isDirty = true; }
+
+function setSaveStatus(type, msg) {
+  const el = document.getElementById('save-status');
+  if (!el) return;
+  el.className = 'save-status' + (type ? ' ' + type : '');
+  el.textContent = msg;
+}
+
+/* ══════════════════════════════════════
+   POPULATE FIELDS FROM siteData
+══════════════════════════════════════ */
+function populate() {
+  const s = siteData.site || {}, h = siteData.home || {};
+  sv('site-name', s.name); sv('site-tagline', s.tagline); sv('site-address', s.address);
+  sv('site-phone', s.phone); sv('site-email', s.email);
+  sv('footer-copyright', (siteData.footer||{}).copyright);
+  sv('site-formspree', s.formspree);
+  sv('intro-heading', (h.intro||{}).heading); sv('intro-body', (h.intro||{}).body);
+  sv('cta1-heading', (h.cta1||{}).heading); sv('cta1-body', (h.cta1||{}).body);
+  sv('cta1-btntext', (h.cta1||{}).buttonText); sv('cta1-btnurl', (h.cta1||{}).buttonUrl);
+  sv('cta2-heading', (h.cta2||{}).heading); sv('cta2-body', (h.cta2||{}).body);
+  sv('cta2-btntext', (h.cta2||{}).buttonText); sv('cta2-btnurl', (h.cta2||{}).buttonUrl);
+  sv('contact-email', s.email);
+
+  // Hero image preview
+  if ((h.hero||{}).image) { slotImages.hero = [h.hero.image]; renderGrid('hero'); }
+  if (h.gallery && h.gallery.length) { slotImages.gallery = h.gallery.map(g=>g.image).filter(Boolean); renderGrid('gallery'); }
+
+  // Yacht Sales fields
+  const ys = (siteData.pages||{}).yachtsales || {};
+  sv('ys-heading', ys.heading || 'Elite Yacht Sales');
+  sv('ys-tagline', ys.tagline || "Our passion doesn't end where the rubber hits the road.");
+  sv('ys-intro',   ys.intro   || '');
+  if (ys.heroImage) { slotImages.yachthero = [ys.heroImage]; renderGrid('yachthero'); }
+
+  // Boat Bids fields
+  const bb = (siteData.pages||{}).boatbids || {};
+  sv('bb-heading', bb.heading    || 'www.Boat-Bids.com');
+  sv('bb-body',    bb.body       || 'Check out Boat Bids for an innovative platform providing consumers an online auction marketplace to buy and sell new or used boats.\n\nAuctions launch every day and run for 7 days. Find incredible deals or list your vessel to thousands of motivated buyers.');
+  sv('bb-btntext', bb.buttonText || 'Learn More About Boat Bids');
+  sv('bb-btnurl',  bb.buttonUrl  || 'http://www.boat-bids.com');
+  if (bb.image) { slotImages.boatbids = [bb.image]; renderGrid('boatbids'); }
+
+  renderInventory();
+  renderUsers();
+  updateGHInfo();
+}
+function sv(id, val) { const el = document.getElementById(id); if (el) el.value = val || ''; }
+
+/* ══════════════════════════════════════
+   SECTION SAVE
+══════════════════════════════════════ */
+function saveSection(section, btn) {
+  if (!siteData.home) siteData.home = {};
+  if (section === 'intro')    { siteData.home.intro = { heading: gv('intro-heading'), body: gv('intro-body') }; }
+  if (section === 'cta1')     { siteData.home.cta1  = { heading: gv('cta1-heading'), body: gv('cta1-body'), buttonText: gv('cta1-btntext'), buttonUrl: gv('cta1-btnurl') }; }
+  if (section === 'cta2')     { siteData.home.cta2  = { heading: gv('cta2-heading'), body: gv('cta2-body'), buttonText: gv('cta2-btntext'), buttonUrl: gv('cta2-btnurl') }; }
+  if (section === 'gallery')  { siteData.home.gallery = slotImages.gallery.filter(u=>u&&u!=='loading').map((u,i)=>({image:u,alt:`Gallery ${i+1}`})); }
+  if (section === 'contact')  { if (!siteData.site) siteData.site={}; siteData.site.email = gv('contact-email'); }
+  if (section === 'siteinfo') {
+    siteData.site = { name:gv('site-name'), tagline:gv('site-tagline'), address:gv('site-address'), phone:gv('site-phone'), email:gv('site-email'), formspree:gv('site-formspree') };
+    siteData.footer = { copyright: gv('footer-copyright') };
+  }
+  if (section === 'sell')     { if (!siteData.pages) siteData.pages={}; siteData.pages.sell = { title:gv('sell-title'), intro:gv('sell-intro') }; }
+  if (section === 'shopper')  { if (!siteData.pages) siteData.pages={}; siteData.pages.shopper = { steps:[{heading:gv('step1h'),text:gv('step1t')},{heading:gv('step2h'),text:gv('step2t')},{heading:gv('step3h'),text:gv('step3t')}] }; }
+  if (section === 'service')  { if (!siteData.pages) siteData.pages={}; siteData.pages.service = { auto:[{name:gv('as1n'),desc:gv('as1d')},{name:gv('as2n'),desc:gv('as2d')},{name:gv('as3n'),desc:gv('as3d')}] }; }
+  if (section === 'financing'){ if (!siteData.pages) siteData.pages={}; siteData.pages.financing = { email:gv('fin-email'), intro:gv('fin-intro') }; }
+  if (section === 'yachtsales'){ if (!siteData.pages) siteData.pages={}; siteData.pages.yachtsales = { heading:gv('ys-heading'), tagline:gv('ys-tagline'), intro:gv('ys-intro'), heroImage: slotImages.yachthero[0]||((siteData.pages||{}).yachtsales||{}).heroImage||'' }; }
+  if (section === 'boatbids')  { if (!siteData.pages) siteData.pages={}; siteData.pages.boatbids = { heading:gv('bb-heading'), body:gv('bb-body'), buttonText:gv('bb-btntext'), buttonUrl:gv('bb-btnurl'), image: slotImages.boatbids[0]||((siteData.pages||{}).boatbids||{}).image||'' }; }
+  pushToGitHub(btn);
+}
+function gv(id) { const el = document.getElementById(id); return el ? el.value : ''; }
+
+/* ══════════════════════════════════════
+   INVENTORY EDITOR
+══════════════════════════════════════ */
+function renderInventory() {
+  const c = document.getElementById('inventory-summary'); if (!c) return;
+  c.innerHTML = '';
+  const yachts = ((siteData.inventory||{}).yachts||[]);
+  if (!yachts.length) { c.innerHTML = '<p style="color:var(--muted);font-size:0.82rem;margin-bottom:1rem;">No listings yet.</p>'; return; }
+  const sc = { available:'#88ee88', sold:'#ff9999', 'coming-soon':'#888' };
+  yachts.forEach((item, i) => {
+    const imgs = item.images && item.images.length ? item.images : (item.image ? [item.image] : []);
+    const d = document.createElement('div'); d.className = 'lrow';
+    d.innerHTML = `${imgs[0]?`<img class="lthumb" src="${imgs[0]}" onerror="this.style.display='none'" />`:'<div class="lthumb"></div>'}
+      <div class="linfo"><div class="lname">${esc(item.name)}</div><div class="lmeta">${esc(item.price||'No price')} · ${imgs.length} photo${imgs.length!==1?'s':''} · <span style="color:${sc[item.status]||'#aaa'}">${item.status||'available'}</span></div></div>
+      <button class="gbtn" onclick="openEditor(${i})">✏ Edit</button>`;
+    c.appendChild(d);
+  });
+}
+
+let editIdx = -1;
+
+function openEditor(i) {
+  editIdx = i;
+  const item = ((siteData.inventory||{}).yachts||[])[i];
+  if (!item) return;
+  document.getElementById('le-label').textContent = item.name;
+  sv('le-name', item.name); sv('le-price', item.price); sv('le-desc', item.description||'');
+  document.getElementById('le-status').value = item.status || 'available';
+  slotImages.listing = item.images && item.images.length ? [...item.images] : (item.image ? [item.image] : []);
+  renderGrid('listing');
+  document.getElementById('listing-editor').style.display = 'block';
+  document.getElementById('listing-editor').scrollIntoView({ behavior:'smooth' });
+}
+
+function closeEditor() {
+  editIdx = -1;
+  document.getElementById('listing-editor').style.display = 'none';
+  slotImages.listing = []; renderGrid('listing');
+}
+
+function saveListing(btn) {
+  if (editIdx < 0) return;
+  if (!siteData.inventory) siteData.inventory = {};
+  if (!siteData.inventory.yachts) siteData.inventory.yachts = [];
+  const item = siteData.inventory.yachts[editIdx];
+  item.name = gv('le-name');
+  item.price = gv('le-price');
+  item.status = document.getElementById('le-status').value;
+  item.description = gv('le-desc');
+  item.images = slotImages.listing.filter(u => u && u !== 'loading');
+  if (!item.id) item.id = item.name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  document.getElementById('le-label').textContent = item.name;
+  renderInventory();
+  pushToGitHub(btn);
+}
+
+function deleteListing() {
+  if (editIdx < 0) return;
+  const item = siteData.inventory.yachts[editIdx];
+  if (!confirm('Delete "' + item.name + '"? This cannot be undone.')) return;
+  siteData.inventory.yachts.splice(editIdx, 1);
+  closeEditor(); renderInventory();
+  pushToGitHub(null);
+}
+
+function addListing() {
+  if (!siteData.inventory) siteData.inventory = {};
+  if (!siteData.inventory.yachts) siteData.inventory.yachts = [];
+  siteData.inventory.yachts.push({ id:'new-'+Date.now(), name:'New Vessel', price:'', status:'available', description:'', images:[] });
+  renderInventory();
+  openEditor(siteData.inventory.yachts.length - 1);
+}
+
+/* ══════════════════════════════════════
+   CLOUDINARY UPLOAD ENGINE
+══════════════════════════════════════ */
+const slotImages = { hero:[], gallery:[], yachthero:[], boatbids:[], listing:[], test:[] };
+
+function getCL() { return { cloud: localStorage.getItem('cl_cloud')||'', preset: localStorage.getItem('cl_preset')||'' }; }
+
+function saveCloudinary() {
+  const cloud = document.getElementById('cl-cloud').value.trim();
+  const preset = document.getElementById('cl-preset').value.trim();
+  if (!cloud||!preset) { alert('Please enter both Cloud Name and Upload Preset.'); return; }
+  localStorage.setItem('cl_cloud', cloud); localStorage.setItem('cl_preset', preset);
+  document.getElementById('cl-status').textContent = '✅ Saved! Upload buttons are now active.';
+  document.getElementById('cl-status').style.color = '#88ee88';
+  updateCLInfo(); showToast('✅ Cloudinary configured! Try the test upload below.');
+}
+
+function updateCLInfo() {
+  const { cloud, preset } = getCL();
+  const el = document.getElementById('cl-current');
+  if (el) el.innerHTML = cloud && preset ? `Cloud Name: <strong style="color:#fff">${cloud}</strong><br>Upload Preset: <strong style="color:#fff">${preset}</strong>` : 'Not configured yet.';
+  if (document.getElementById('cl-cloud')) { document.getElementById('cl-cloud').value = cloud; document.getElementById('cl-preset').value = preset; }
+}
+
+function dov(e,id) { e.preventDefault(); document.getElementById(id)&&document.getElementById(id).classList.add('drag'); }
+function dol(id) { document.getElementById(id)&&document.getElementById(id).classList.remove('drag'); }
+function dof(e,id,slot,max) { e.preventDefault(); dol(id); handleFiles(Array.from(e.dataTransfer.files).filter(f=>f.type.startsWith('image/')), slot, max); }
+function hfc(e,id,slot,max) { handleFiles(Array.from(e.target.files), slot, max); e.target.value=''; }
+
+async function handleFiles(files, slot, max) {
+  const { cloud, preset } = getCL();
+  if (!cloud||!preset) { showToast('⚠️ Set up Cloudinary first — go to Image Upload Setup in the left menu.'); return; }
+  if (!files.length) return;
+  const remaining = max - (slotImages[slot]||[]).length;
+  if (remaining <= 0) { showToast(`⚠️ Maximum ${max} photo${max>1?'s':''} reached.`); return; }
+  files = files.slice(0, remaining);
+  const prog = document.getElementById('prog-'+slot), bar = document.getElementById('progbar-'+slot);
+  if (prog) prog.style.display = 'block';
+
+  for (let i = 0; i < files.length; i++) {
+    const pidx = slotImages[slot].length;
+    slotImages[slot].push('loading'); renderGrid(slot);
+    const url = await doUpload(files[i], cloud, preset, (pct) => { if (bar) bar.style.width = (((i+pct)/files.length)*100)+'%'; });
+    if (url) { slotImages[slot][pidx] = url; }
+    else { slotImages[slot].splice(pidx,1); }
+    renderGrid(slot);
+  }
+  if (prog) { prog.style.display='none'; if(bar) bar.style.width='0'; }
+
+  // ── AUTO-SAVE EVERY SLOT TO GITHUB IMMEDIATELY ──
+  if (slot === 'hero') {
+    if (!siteData.home) siteData.home = {};
+    siteData.home.hero = { image: slotImages.hero[0] || '' };
+    const statusEl = document.getElementById('hero-save-status');
+    if (statusEl) { statusEl.textContent = '⏳ Saving to site...'; statusEl.style.color = '#f0c040'; statusEl.style.display = 'block'; }
+    showToast('📸 Photo uploaded — saving to site...');
+    await pushToGitHub(null);
+    if (statusEl) { statusEl.textContent = '✅ Hero photo saved! Refresh your site in ~30 seconds.'; statusEl.style.color = '#88ee88'; }
+    showToast('✅ Hero photo saved! Refresh your site in ~30 seconds.');
+  }
+
+  if (slot === 'gallery') {
+    if (!siteData.home) siteData.home = {};
+    siteData.home.gallery = slotImages.gallery
+      .filter(u => u && u !== 'loading')
+      .map((u, i) => ({ image: u, alt: 'Gallery photo ' + (i + 1) }));
+    const statusEl = document.getElementById('gallery-save-status');
+    if (statusEl) { statusEl.textContent = '⏳ Saving to site...'; statusEl.style.color = '#f0c040'; statusEl.style.display = 'block'; }
+    showToast('📸 Photo uploaded — saving to site...');
+    await pushToGitHub(null);
+    if (statusEl) { statusEl.textContent = '✅ Gallery saved! Refresh your site in ~30 seconds.'; statusEl.style.color = '#88ee88'; }
+    showToast('✅ Gallery saved! Refresh your site in ~30 seconds.');
+  }
+
+  if (slot === 'yachthero') {
+    if (!siteData.pages) siteData.pages = {};
+    if (!siteData.pages.yachtsales) siteData.pages.yachtsales = {};
+    siteData.pages.yachtsales.heroImage = slotImages.yachthero[0] || '';
+    showToast('📸 Photo uploaded — saving to site...');
+    await pushToGitHub(null);
+    showToast('✅ Yacht hero saved! Refresh your site in ~30 seconds.');
+  }
+
+  if (slot === 'boatbids') {
+    if (!siteData.pages) siteData.pages = {};
+    if (!siteData.pages.boatbids) siteData.pages.boatbids = {};
+    siteData.pages.boatbids.image = slotImages.boatbids[0] || '';
+    showToast('📸 Image uploaded — saving to site...');
+    await pushToGitHub(null);
+    showToast('✅ Boat Bids image saved! Refresh your site in ~30 seconds.');
+  }
+
+  if (slot === 'listing') {
+    // Auto-save listing photos immediately without waiting for Save button
+    if (editIdx >= 0 && siteData.inventory && siteData.inventory.yachts[editIdx]) {
+      const item = siteData.inventory.yachts[editIdx];
+      item.images = slotImages.listing.filter(u => u && u !== 'loading');
+      // Make sure the id is set so listing.html can find it
+      if (!item.id) item.id = item.name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+      // Show status in the editor
+      const statusEl = document.getElementById('listing-save-status');
+      if (statusEl) { statusEl.textContent = '⏳ Saving photos to site...'; statusEl.style.color = '#f0c040'; statusEl.style.display = 'block'; }
+      showToast('📸 Photo uploaded — saving to site...');
+      await pushToGitHub(null);
+      if (statusEl) { statusEl.textContent = '✅ Photos saved! Refresh your site in ~30 seconds to see them.'; statusEl.style.color = '#88ee88'; }
+      showToast('✅ Listing photos saved! Refresh your site in ~30 seconds.');
+    } else {
+      showToast('⚠️ Please open a listing to edit before uploading photos.');
+    }
+  }
+
+  if (slot === 'test') {
+    showToast('✅ Test upload worked! Cloudinary is set up correctly.');
+  }
+}
+
+async function doUpload(file, cloud, preset, onProg) {
+  const fd = new FormData();
+  fd.append('file', file); fd.append('upload_preset', preset);
+  return new Promise(resolve => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', `https://api.cloudinary.com/v1_1/${cloud}/image/upload`);
+    xhr.upload.onprogress = e => { if (e.lengthComputable && onProg) onProg(e.loaded/e.total); };
+    xhr.onload = () => {
+      try {
+        const res = JSON.parse(xhr.responseText);
+        if (xhr.status===200 && res.secure_url) { resolve(res.secure_url); }
+        else {
+          const msg = res.error ? res.error.message : 'HTTP '+xhr.status;
+          let fix = '\n\nCommon fixes:\n1. Set your upload preset to UNSIGNED in Cloudinary → Settings → Upload → Upload Presets\n2. Double-check Cloud Name and Preset Name in Image Upload Setup';
+          if ((msg||'').toLowerCase().includes('preset')) fix = '\n\nFIX: Go to Cloudinary → Settings → Upload → Upload Presets → click your preset → set Signing Mode to UNSIGNED → Save';
+          alert('❌ Upload failed: ' + msg + fix);
+          resolve(null);
+        }
+      } catch(e) { alert('❌ Upload error: could not parse Cloudinary response.'); resolve(null); }
+    };
+    xhr.onerror = () => { alert('❌ Network error. Check your connection.'); resolve(null); };
+    xhr.send(fd);
+  });
+}
+
+function renderGrid(slot) {
+  const gridId = { listing:'listing-photo-grid', gallery:'gallery-photos', hero:'hero-photos', yachthero:'yachthero-photos', boatbids:'boatbids-photos', test:'test-photos' }[slot];
+  const grid = document.getElementById(gridId); if (!grid) return;
+  const imgs = slotImages[slot]||[];
+  grid.className = imgs.length ? 'photo-grid' : '';
+  grid.innerHTML = imgs.map((url,i) => url==='loading'
+    ? `<div class="photo-item"><div class="pspin">⏳</div></div>`
+    : `<div class="photo-item"><img src="${url}" /><button class="pdel" onclick="removePhoto('${slot}',${i})">✕</button>${imgs.length>1?`<div class="pnum">${i+1}</div>`:''}</div>`
+  ).join('');
+}
+
+function removePhoto(slot, idx) {
+  if (!confirm('Remove this photo?')) return;
+  slotImages[slot].splice(idx, 1);
+  renderGrid(slot);
+
+  if (slot === 'hero') {
+    if (!siteData.home) siteData.home = {};
+    siteData.home.hero = { image: slotImages.hero[0] || '' };
+    pushToGitHub(null);
+  }
+  if (slot === 'gallery') {
+    if (!siteData.home) siteData.home = {};
+    siteData.home.gallery = slotImages.gallery.filter(u => u && u !== 'loading').map((u, i) => ({ image: u, alt: 'Gallery photo ' + (i + 1) }));
+    pushToGitHub(null);
+  }
+  if (slot === 'listing' && editIdx >= 0) {
+    siteData.inventory.yachts[editIdx].images = slotImages.listing.filter(u => u && u !== 'loading');
+    pushToGitHub(null);
+  }
+  if (slot === 'yachthero') {
+    if (!siteData.pages) siteData.pages = {};
+    if (!siteData.pages.yachtsales) siteData.pages.yachtsales = {};
+    siteData.pages.yachtsales.heroImage = slotImages.yachthero[0] || '';
+    pushToGitHub(null);
+  }
+  if (slot === 'boatbids') {
+    if (!siteData.pages) siteData.pages = {};
+    if (!siteData.pages.boatbids) siteData.pages.boatbids = {};
+    siteData.pages.boatbids.image = slotImages.boatbids[0] || '';
+    pushToGitHub(null);
+  }
+}
+
+/* ══════════════════════════════════════
+   FONT INSTRUCTIONS
+══════════════════════════════════════ */
+function previewFonts() {
+  const bf=gv('body-font'),bs=document.getElementById('body-size').value;
+  const hf=gv('heading-font'),hs=document.getElementById('heading-size').value;
+  document.getElementById('body-preview').style.cssText=`font-family:${bf};font-size:${bs}px`;
+  document.getElementById('heading-preview').style.cssText=`font-family:${hf};font-size:${hs}px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em`;
+}
+function downloadFontInstructions() {
+  const bf=gv('body-font'),bs=document.getElementById('body-size').value,hf=gv('heading-font'),hs=document.getElementById('heading-size').value,ns=document.getElementById('nav-size')?document.getElementById('nav-size').value:'13';
+  const t=`ELITE AUTOHAUS — FONT INSTRUCTIONS\n\nBody font: ${bf}\nBody size: ${bs}px\nHeading font: ${hf}\nHeading size: ${hs}px\n\nIn style.css, make these 4 changes:\n\n1. Replace all: font-family: 'Open Sans', sans-serif;\n   With:        font-family: ${bf};\n\n2. Replace all: font-family: 'Rajdhani', sans-serif;\n   With:        font-family: ${hf};\n\n3. In body { } find: font-size: 15px;\n   Change to:        font-size: ${bs}px;\n\n4. In nav a { } find: font-size: 0.8rem;\n   Change to:         font-size: ${ns}px;\n\nSave style.css and upload it to GitHub.\n`;
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([t],{type:'text/plain'})); a.download='font-instructions.txt'; a.click(); showToast('✅ Downloaded!');
+}
+
+/* ══════════════════════════════════════
+   USERS
+══════════════════════════════════════ */
+const currentUser = sessionStorage.getItem('ea_admin');
+if (!currentUser) window.location.href='index.html';
+document.getElementById('logged-in-name').textContent = currentUser||'—';
+function logout() { sessionStorage.removeItem('ea_admin'); window.location.href='index.html'; }
+
+function getUsers() { try { const s=localStorage.getItem('ea_users'); if(s) return JSON.parse(s); }catch(e){} const d=[{username:'Konrad',password:'Polska89',role:'admin'}]; localStorage.setItem('ea_users',JSON.stringify(d)); return d; }
+function saveUsers(u) { localStorage.setItem('ea_users',JSON.stringify(u)); }
+
+function renderUsers() {
+  document.getElementById('user-list').innerHTML = getUsers().map((u,i) => {
+    const me = u.username===currentUser;
+    return `<div class="ucard"><div class="uinfo"><div class="uav">${u.username.substring(0,2).toUpperCase()}</div><div><div style="font-weight:600;font-size:0.86rem;">${esc(u.username)}${me?' <span style="font-size:0.68rem;color:var(--muted);">(you)</span>':''}</div><div style="font-size:0.7rem;color:var(--muted);text-transform:uppercase;">${u.role||'admin'}</div></div></div><div style="display:flex;gap:0.5rem;"><button class="gbtn" onclick="openEditUser(${i})">✏ Edit</button>${!me?`<button class="dbtn" onclick="delUser(${i})">✕</button>`:''}</div></div>`;
+  }).join('');
+}
+
+let editUserIdx=-1;
+function openAddUser() { editUserIdx=-1; document.getElementById('modal-title').textContent='Add New User'; document.getElementById('modal-user').value=''; document.getElementById('modal-pass').value=''; document.getElementById('modal-role').value='admin'; document.getElementById('user-modal').classList.add('open'); }
+function openEditUser(i) { editUserIdx=i; const u=getUsers()[i]; document.getElementById('modal-title').textContent='Edit: '+u.username; document.getElementById('modal-user').value=u.username; document.getElementById('modal-pass').value=u.password; document.getElementById('modal-role').value=u.role||'admin'; document.getElementById('user-modal').classList.add('open'); }
+function closeModal() { document.getElementById('user-modal').classList.remove('open'); }
+function saveUser() {
+  const u=document.getElementById('modal-user').value.trim(),p=document.getElementById('modal-pass').value,r=document.getElementById('modal-role').value;
+  if (!u||!p) { alert('Fill in all fields.'); return; }
+  const users=getUsers();
+  if (editUserIdx===-1) { if (users.find(x=>x.username.toLowerCase()===u.toLowerCase())) { alert('Username already exists.'); return; } users.push({username:u,password:p,role:r}); } else { users[editUserIdx]={username:u,password:p,role:r}; }
+  saveUsers(users); renderUsers(); closeModal(); showToast('✅ User saved!');
+}
+function delUser(i) { const users=getUsers(); if (!confirm('Remove "'+users[i].username+'"?')) return; users.splice(i,1); saveUsers(users); renderUsers(); showToast('✅ Removed.'); }
+function changeMyPw() {
+  const cur=gv('my-cur-pw'),nw=gv('my-new-pw'),con=gv('my-con-pw');
+  const users=getUsers(); const idx=users.findIndex(u=>u.username===currentUser);
+  if (idx===-1) return;
+  if (users[idx].password!==cur) { alert('❌ Current password is wrong.'); return; }
+  if (!nw||nw!==con) { alert('❌ New passwords do not match.'); return; }
+  users[idx].password=nw; saveUsers(users);
+  ['my-cur-pw','my-new-pw','my-con-pw'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  showToast('✅ Password changed!');
+}
+
+/* ══════════════════════════════════════
+   PANELS & TOAST
+══════════════════════════════════════ */
+const pnames = { home:'Home Page',sell:'Sell Page',shopper:'Personal Shopper',service:'Service',financing:'Financing',yachtsales:'Yacht Sales',inventory:'Yacht Inventory',contact:'Contact',siteinfo:'Site Info & Email',fonts:'Fonts & Sizes',cloudinary:'Image Upload Setup',github:'GitHub Settings',users:'Users & Passwords' };
+function show(name, btn) {
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nbtn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('panel-'+name).classList.add('active');
+  if (btn) btn.classList.add('active');
+  document.getElementById('panel-title').textContent = pnames[name]||name;
+}
+function showToast(msg) { const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),4000); }
+function esc(s) { return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+
+/* ══════════════════════════════════════
+   INIT
+══════════════════════════════════════ */
+const gh = getGH();
+if (gh.user && gh.repo && gh.token) {
+  document.getElementById('github-setup').style.display = 'none';
+  loadContent();
+  updateGHInfo();
+  updateCLInfo();
+} else {
+  // Show setup screen
+  setSaveStatus('', '● Setup required');
+}
+
+// Warn on leaving with unsaved changes
+window.addEventListener('beforeunload', e => { if (isDirty) { e.preventDefault(); e.returnValue = ''; } });
+</script>
+</body>
+</html>

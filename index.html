@@ -42,7 +42,7 @@
 
 <!-- ── HERO ── -->
 <section class="hero-full">
-  <img id="hero-img" src="" alt="Elite Autohaus" style="display:none;width:100%;height:100%;object-fit:cover;object-position:center;" />
+  <img id="hero-img" src="" alt="Elite Autohaus" />
   <div class="hero-full-overlay">
     <div class="hero-full-text">
       <h1>Elite Autohaus</h1>
@@ -93,7 +93,7 @@
 <!-- ── PHOTO GALLERY ── -->
 <section class="section section-black" id="gallery-section" style="display:none;">
   <div class="wrapper">
-    <div id="gallery-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;"></div>
+    <div class="home-gallery-grid" id="gallery-grid"></div>
   </div>
 </section>
 
@@ -122,13 +122,12 @@
     const h = data.home || {};
     const s = data.site || {};
 
-    // Hero image
+    // Hero image — CSS handles sizing, just set src
     const heroImg = document.getElementById('hero-img');
     const heroSrc = (h.hero || {}).image || '';
     if (heroSrc && heroImg) {
       heroImg.src = heroSrc;
-      heroImg.removeAttribute('style'); // remove display:none — CSS handles sizing
-      heroImg.onerror = function() { this.style.display = 'none'; };
+      heroImg.onerror = function() { this.src = ''; };
     }
 
     // Intro text
@@ -163,7 +162,7 @@
       const grid = document.getElementById('gallery-grid');
       sec.style.display = '';
       grid.innerHTML = validGallery.map(g =>
-        `<img src="${g.image}" alt="${g.alt || ''}" style="width:100%;aspect-ratio:4/3;object-fit:cover;opacity:0.85;" onerror="this.parentElement.style.display='none'" />`
+        `<div class="home-gallery-cell"><img src="${g.image}" alt="${g.alt || ''}" loading="lazy" onerror="this.parentElement.style.display='none'" /></div>`
       ).join('');
     }
 
