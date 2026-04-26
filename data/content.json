@@ -43,8 +43,7 @@
   ],
   "home": {
     "hero": {
-      "image": "images/hero.jpg",
-      "imageAlt": "Elite Autohaus"
+      "image": ""
     },
     "intro": {
       "heading": "About Elite Autohaus",
