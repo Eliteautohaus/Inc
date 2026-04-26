@@ -32,6 +32,9 @@
   "pages": {
     "yachtsales": {
       "heroImage": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777212325/y1n5xseo6mcd1swdujfv.jpg"
+    },
+    "boatbids": {
+      "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777212400/igwuyxto4ek2x27bgxve.png"
     }
   }
 }
