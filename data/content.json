@@ -2,6 +2,12 @@
   "home": {
     "hero": {
       "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777212153/gb8jzkgzm174zdht66xn.jpg"
-    }
+    },
+    "gallery": [
+      {
+        "image": "https://res.cloudinary.com/dvnleduvx/image/upload/v1777212208/btorltv4wk5saaq72wnu.png",
+        "alt": "Gallery photo 1"
+      }
+    ]
   }
 }
