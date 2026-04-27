@@ -50,19 +50,19 @@
         <form id="contact-form" method="POST">
           <div class="form-group">
             <label>Name <span>*</span></label>
-            <input type="text" required placeholder="Your full name" />
+            <input type="text" name="name" required placeholder="Your full name" autocomplete="name" />
           </div>
           <div class="form-group">
             <label>Email <span>*</span></label>
-            <input type="email" required placeholder="you@example.com" />
+            <input type="email" name="email" required placeholder="you@example.com" autocomplete="email" />
           </div>
           <div class="form-group">
             <label>Phone Number <span>*</span></label>
-            <input type="tel" required placeholder="(416) 555-0000" />
+            <input type="tel" name="phone" required placeholder="(416) 555-0000" autocomplete="tel" />
           </div>
           <div class="form-group">
             <label>Message</label>
-            <textarea rows="6" placeholder="Tell us about your dream car, or what you're looking to sell. Include year, make, model, options and colours desired..."></textarea>
+            <textarea name="message" rows="6" placeholder="Tell us about your dream car, or what you're looking to sell. Include year, make, model, options and colours desired..."></textarea>
           </div>
           <button type="submit" class="btn btn-red" id="contact-submit-btn">Send Message</button>
         </form>

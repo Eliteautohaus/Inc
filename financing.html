@@ -51,27 +51,27 @@
 
           <div class="form-group full">
             <label>First &amp; Last Name <span>*</span></label>
-            <input type="text" required placeholder="Full legal name" />
+            <input type="text" name="full_name" required placeholder="Full legal name" autocomplete="name" />
           </div>
 
           <div class="form-group">
             <label>Email <span>*</span></label>
-            <input type="email" required placeholder="you@example.com" />
+            <input type="email" name="email" required placeholder="you@example.com" autocomplete="email" />
           </div>
 
           <div class="form-group">
             <label>Phone Number <span>*</span></label>
-            <input type="tel" required placeholder="(416) 555-0000" />
+            <input type="tel" name="phone" required placeholder="(416) 555-0000" autocomplete="tel" />
           </div>
 
           <div class="form-group">
             <label>Date of Birth <span>*</span></label>
-            <input type="date" required />
+            <input type="date" name="date_of_birth" required />
           </div>
 
           <div class="form-group">
             <label>Gender <span>*</span></label>
-            <select required>
+            <select name="gender" required>
               <option value="">— Select —</option>
               <option>Male</option>
               <option>Female</option>
@@ -82,17 +82,17 @@
 
           <div class="form-group full">
             <label>Address / City / Postal Code <span>*</span></label>
-            <input type="text" required placeholder="123 Main St, Toronto, ON M5H 2N2" />
+            <input type="text" name="address" required placeholder="123 Main St, Toronto, ON M5H 2N2" autocomplete="street-address" />
           </div>
 
           <div class="form-group">
             <label>Duration at Current Address <span>*</span></label>
-            <input type="text" required placeholder="e.g. 3 years 2 months" />
+            <input type="text" name="duration_at_address" required placeholder="e.g. 3 years 2 months" />
           </div>
 
           <div class="form-group">
             <label>Rent or Own <span>*</span></label>
-            <select required>
+            <select name="rent_or_own" required>
               <option value="">— Select —</option>
               <option>Own</option>
               <option>Rent</option>
@@ -103,22 +103,22 @@
 
           <div class="form-group full">
             <label>Employer, Position &amp; Employment Status <span>*</span></label>
-            <input type="text" required placeholder="e.g. ABC Corp, Sales Manager, Full-time" />
+            <input type="text" name="employer_and_position" required placeholder="e.g. ABC Corp, Sales Manager, Full-time" />
           </div>
 
           <div class="form-group">
             <label>Duration of Employment <span>*</span></label>
-            <input type="text" required placeholder="e.g. 2 years" />
+            <input type="text" name="duration_of_employment" required placeholder="e.g. 2 years" />
           </div>
 
           <div class="form-group">
             <label>Gross Annual Income <span>*</span></label>
-            <input type="text" required placeholder="e.g. $75,000" />
+            <input type="text" name="gross_annual_income" required placeholder="e.g. $75,000" />
           </div>
 
           <div class="form-group full">
             <label>Have you been subject to the Bankruptcy or Insolvency Act? <span>*</span></label>
-            <select required>
+            <select name="bankruptcy" required>
               <option value="">— Select —</option>
               <option>No</option>
               <option>Yes — discharged</option>
@@ -128,7 +128,7 @@
 
           <div class="form-group full">
             <label>Additional Notes</label>
-            <textarea placeholder="Vehicle of interest, trade-in info, any other relevant details..."></textarea>
+            <textarea name="notes" placeholder="Vehicle of interest, trade-in info, any other relevant details..."></textarea>
           </div>
 
         </div>
